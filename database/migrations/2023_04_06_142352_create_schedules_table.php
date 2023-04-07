@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId("user_id")->constrained("users")->cascadeOnDelete();
             $table->dateTime("start");
             $table->dateTime("end");
+            $table->string("friend_name")->nullable();
+            $table->string("friend_npm")->nullable();
             $table->timestamps();
         });
     }
