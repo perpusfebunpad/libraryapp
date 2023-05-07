@@ -20,6 +20,7 @@ return new class extends Migration
             $table->dateTime("end");
             $table->string("friend_name")->nullable();
             $table->string("friend_npm")->nullable();
+            $table->uuid("verification_code")->unique();
             $table->timestamps();
         });
     }

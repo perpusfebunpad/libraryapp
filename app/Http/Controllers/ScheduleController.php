@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Schedule;
+use Fpdf\Fpdf;
 
 class ScheduleController extends Controller
 {
@@ -55,7 +57,8 @@ class ScheduleController extends Controller
         $new_data = [
             "start" => $start,
             "end" => $end,
-            "user_id" => $user->id,            
+            "user_id" => $user->id,
+            "verification_code" => Str::uuid(),
         ];
 
         if(array_key_exists("friend_name", $data) && array_key_exists("friend_npm", $data)) {
@@ -66,5 +69,30 @@ class ScheduleController extends Controller
         $schedule = Schedule::create($new_data);
 
         return back()->with("success", "Schedule created");
+    }
+
+    public function proof() {
+        $user = auth()->user();
+        if($user->schedule == null)
+            return redirect("/schedule");
+        $schedule = $user->schedule;
+        $pdf = new Fpdf();
+        $pdf->SetTitle("Bukti registrasi jadwal database refinitiv");
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 24);
+        $pdf->Write(5, "Bukti registrasi jadwal");
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Write(5, "Nama : $user->name");
+        $pdf->Ln(5);
+        $pdf->Write(5, "NPM : $user->npm");
+        $pdf->Ln(5);
+        $pdf->Write(5, "Mulai : $schedule->start");
+        $pdf->Ln(5);
+        $pdf->Write(5, "Akhir : $schedule->end");
+        $pdf->Ln(5);
+        $pdf->Write(5, "Kode Jadwal : $schedule->verification_code");
+        $pdf->Output('D', "bukti-registrasi.pdf");
+        // return redirect("/schedule");
     }
 }

@@ -33,13 +33,13 @@ class AuthController extends Controller
 
     public function store(Request $request) {
         $validData = $request->validate([
-            "npm" => "required|numeric|digits_between:12,12",
+            "npm" => "required|numeric|digits_between:12,18",
             "name" => "required",
             "email" => "required|email",
+            "phone_number" => "required|numeric|digits_between:10,14",
+            "departement" => "required", 
             "password" => "required|min:8|confirmed",
         ]);
-
-        // dd($validData);
 
         $validData["password"] = Hash::make($validData["password"]);
         $user = User::create($validData);

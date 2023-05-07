@@ -18,7 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::view("/", "index");
 Route::view("/schedule", "schedule")->middleware("auth");
 Route::redirect("/home", "/");
-Route::post("/", [ScheduleController::class, "make"]);
+
+Route::prefix("/schedule")->middleware("auth")->controller(ScheduleController::class)->group(function(){
+    Route::view("/", "schedule");
+    Route::post("/", "make");
+    Route::get("/proof", "proof");
+});
 
 Route::prefix("/auth")->controller(AuthController::class)->group(function(){
     Route::get("/login", "login")->middleware("guest")->name("login");
