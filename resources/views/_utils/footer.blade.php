@@ -10,6 +10,10 @@
                         <img src="/static/icons/map-pin.svg" class="h-8 mr-3" alt="Address">
                         Jln. Raya Bandung-Sumedang Km. 21 Jatinangor, Kab. Sumedang 45363 Jawa Barat
                     </a>
+                    <a href="#" class="flex items-center hover:underline">
+                        <img src="/static/icons/mail.svg" class="h-8 mr-3" alt="Address">
+                        perpustakaanfebunpad@gmail.com
+                    </a>
                 </li>
             </ul>
         </div>
@@ -45,16 +49,21 @@
             <h2 class="mb-6 text-xl font-semibold text-gray-900 uppercase dark:text-white">Navigation</h2>
             <ul class="text-unpad-dark font-light dark:text-gray-400 font-medium">
                 <li class="mb-4">
-                    <a href="#" class="hover:underline">Home</a>
+                    <a href="/" class="hover:underline">Home</a>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="hover:underline">Schedules</a>
+                    <a href="/schedule" class="hover:underline">Schedules</a>
                 </li>
+                @can("moderate")
+                <li class="mb-4">
+                    <a href="/_" class="hover:underline">Admin Page</a>
+                </li>
+                @endcan
             </ul>
         </div>
     </div>
     <div class="px-4 py-6 bg-gray-100 dark:bg-gray-700 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-unpad-dark dark:text-gray-300 sm:text-center">© 2023 <a href="https://flowbite.com/">Flowbite™</a>. All Rights Reserved.
+        <span class="text-sm text-unpad-dark dark:text-gray-300 sm:text-center">© 2023 <a href="/">Perpustakaan FEB UNPAD</a>. All Rights Reserved.
         </span>
         <div class="flex mt-4 space-x-6 sm:justify-center md:mt-0">
             <a href="#" class="text-gray-400 hover:text-gray-900 dark:hover:text-white">

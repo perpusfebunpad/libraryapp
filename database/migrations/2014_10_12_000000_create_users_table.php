@@ -23,11 +23,26 @@ return new class extends Migration
                 "MAHASISWA", "DOSEN", "TENAGA_DIDIK"
             ]);
             $table->enum("departement", [
+                "D4_AKUNTANSI_PERPAJAKAN",
+                "D4_AKUNTANSI_SEKTOR_PUBLIK",
+                "D4_BISNIS_INTERNASIONAL",
+                "D4_PEMASARAN_DIGITAL",
                 "S1_AKUNTANSI", 
                 "S1_MANAJEMEN", 
                 "S1_ILMU_EKONOMI", 
                 "S1_BISNIS_DIGITAL", 
                 "S1_AKUNTANSI_SEKTOR_PUBLIK",
+                "PROFESI_AKUNTANSI",
+                "S2_EKONOMI",
+                "S2_ILMU_EKONOMI",
+                "S2_ILMU_MANAJEMEN", 
+                "S2_MANAJEMEN",
+                "S2_AKUNTANSI",
+                "S2_EKONOMI_TERAPAN",
+                "S2_MANAJEMEN_MIKRO_TERPADU",
+                "S3_EKONOMI",
+                "S3_MANAJEMEN",
+                "S3_AKUNTANSI",
             ]);
             $table->string("phone_number");
 

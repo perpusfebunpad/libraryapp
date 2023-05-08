@@ -3,7 +3,7 @@
         <a href="/" class="flex items-center">
             <img src="/static/logo-unpad.png" class="h-12 mr-3" alt="Logo UNPAD" />
             <span class="self-center font-semibold whitespace-nowrap dark:text-white">
-                <p class="text-2xl">Database Refinitif</p>
+                <p class="text-2xl">Database Refinitiv</p>
                 <p class="hidden md:block text-md font-extralight">Fakultas Ekonomi dan Bisnis Universitas Padjajaran</p>
             </span>
         </a>

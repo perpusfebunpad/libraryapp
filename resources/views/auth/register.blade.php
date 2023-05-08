@@ -48,7 +48,19 @@
                     <option value="S1_ILMU_EKONOMI">S1 - Ilmu Ekonomi</option>
                     <option value="S1_BISNIS_DIGITAL">S1 - Bisnis Digital</option>
                     <option value="S1_AKUNTANSI_SEKTOR_PUBLIK">S1 - Akuntansi Sektor Publik</option>
-                </select>
+                    <option value="PROFESI_AKUNTANSI">Profesi Akuntansi</option>
+                    <option value="S2_EKONOMI">S2 Ekonomi</option>
+                    <option value="S2_ILMU_EKONOMI">S2 Ilmu Ekonomi</option>
+                    <option value="S2_ILMU_MANAJEMEN">S2 Ilmu Manajemen</option> 
+                    <option value="S2_MANAJEMEN">S2 Manajemen</option>
+                    <option value="S2_AKUNTANSI">S2 Akuntansi</option>
+                    <option value="S2_EKONOMI_TERAPAN">S2 Ekonomi Terapan</option>
+                    <option value="S2_MANAJEMEN">S2 Manajemen</option>
+                    <option value="S2_MANAJEMEN_MIKRO_TERPADU">S2 Manajemen Mikro Terpadu</option>
+                    <option value="S3_EKONOMI">S3 Ekonomi</option>
+                    <option value="S3_MANAJEMEN">S3 Manajemen</option>
+                    <option value="S3_AKUNTANSI">S3 Akuntansi</option>
+                </select>   
                 @error("departement")
                     <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror

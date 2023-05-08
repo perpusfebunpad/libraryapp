@@ -9,17 +9,30 @@
 @include("_utils.navbar")
 <main class="flex justify-center p-10">
     @if(auth()->user()->schedule != null)
-    <div class="max-w-sm w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div class="max-w-md w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Your Schedule</h5>
-
+        @if(session()->has("error"))
+            <div class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+                <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Error</span> {{ session("error")}}
+                </div>
+            </div>
+        @endif
+        @if(session()->has("success"))
+        <div class="flex p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
+            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+            <span class="sr-only">Info</span>
+            <div>
+                <span class="font-medium">Success</span> {{ session("success") }}
+            </div>
+        </div>
+        @endif
         <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
             <div class="flex flex-col pb-3">
-                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Begin</dt>
-                <dd class="text-lg font-semibold">{{ auth()->user()->schedule->start }}</dd>
-            </div>
-            <div class="flex flex-col py-3">
-                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Ends</dt>
-                <dd class="text-lg font-semibold">{{ auth()->user()->schedule->end }}</dd>
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Waktu</dt>
+                <dd class="text-lg font-semibold">{{ auth()->user()->schedule->start }} - {{ auth()->user()->schedule->end }}</dd>
             </div>
             <div class="flex flex-col pt-3">
                 <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Status</dt>
@@ -36,12 +49,16 @@
             <div class="flex flex-col pt-3">
                 <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Teman</dt>
                 <dd class="text-lg font-semibold">
-                    {{ auth()->user()->schedule->friend_name !== null ? auth()->user()->schedule->friend_name + "-" : "N/A" }} {{ auth()->user()->schedule->friend_npm !== null ? auth()->user()->schedule->friend_npm : "" }}
+                    {{ auth()->user()->schedule->friend_name !== null ? auth()->user()->schedule->friend_name . " - " : "N/A" }} {{ auth()->user()->schedule->friend_npm !== null ? auth()->user()->schedule->friend_npm : "" }}
                 </dd>
             </div>
             <div class="flex flex-col pt-3">
                 <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Bukti Registrasi</dt>
                 <a href="/schedule/proof" class="mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Download Bukti Registrasi</a>
+            </div>
+            <div class="flex flex-col py-3">
+                <dt class="mb-1 text-red-500 md:text-lg dark:text-red-400">*Catatan</dt>
+                <dd class="text-sm font-light text-red-500">Harap mendownload bukti registrasi dan membawa KTM untuk verifikasi di perpustakaan</dd>
             </div>
         </dl>
     </div>
@@ -54,6 +71,7 @@
             <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400 text-sm">
                 <li>Hari Sabtu dan Minggu perpustakaan tutup</li>
                 <li>Hari Jum'at sesi 4 perpustakaan tutup</li>
+                <li>Pada tanggal cuti bersama perpustakaan ditutup</li>
                 <li>Pembuatan jadwal hanya bisa dibuat sekali seminggu</li>
             </ul>
             @if(session()->has("error"))

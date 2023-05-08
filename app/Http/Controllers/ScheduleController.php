@@ -5,10 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Schedule;
+use App\Models\User;
 use Fpdf\Fpdf;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
 
 class ScheduleController extends Controller
 {
+    public function index() {
+        $user = auth()->user();
+        if($user->schedule !== null && $user->schedule->expired() && $user->schedule->destroyable()) {
+            Schedule::destroy($user->schedule->id);
+        }
+        return view("schedule");
+    }
+
     public function make(Request $request) {
         $user = auth()->user();
         $one_hour = 60 * 60;
@@ -18,7 +30,7 @@ class ScheduleController extends Controller
             if($user->schedule->expired() && $user->schedule->destroyable()) {
                 Schedule::destroy($user->schedule->id);
             } else {
-                return back()->with("error", "Can't register a schedule if you already have one this week");
+                return back()->with("error", "Tidak bisa maelakukan registrasi apabila anda sudah memiliki jadwal untuk minggu ini");
             }
         }
 
@@ -46,13 +58,12 @@ class ScheduleController extends Controller
             return back()->with("error", "Tidak bisa mendaftarkan jadwal di hari Sabtu dan Minggu karena perpustakaan tutup");
         }
 
-
         $now = time();
         $start = $data["date"] . " " .  $data["session"];
         $end = date("Y-m-d H:i:s", strtotime($start) + $one_hour);
 
         if($now > strtotime($end))
-            return back()->with("error", "Can't register an expired schedule");
+            return back()->with("error", "Tidak bisa mendaftarkan jadwal di hari yang sudah lewat");
 
         $new_data = [
             "start" => $start,
@@ -69,6 +80,48 @@ class ScheduleController extends Controller
         $schedule = Schedule::create($new_data);
 
         return back()->with("success", "Schedule created");
+    }
+
+    public function get_email() {
+        $user = auth()->user();
+        if($user->schedule === null)
+            return back()->with("error", "You don't have any schedule");
+        $schedule = $user->schedule;
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER; // TODO: set into SMTP::DEBUG_OFF on production
+        $mail->Host = "smtp.gmail.com";
+        $mail->Port = 587;
+        $mail->SMTPSecure = "tls";
+        $mail->SMTPAuth = true;
+        $mail->isHTML(true);
+        $mail->Username = env("MAIL_USERNAME");
+        $mail->Password = env("MAIL_PASSWORD");
+        $mail->setFrom(env("MAIL_USERNAME"), "Noreply");
+        $mail->addAddress($user->email);
+        $mail->Subject = "Bukti registrasi Jadwal akses Database Refinitiv FEB UNPAD";
+        $mail->msgHTML("
+<h1>Bukti registrasi Jadwal akses Database Refinitiv FEB UNPAD</h1>
+<table>
+    <tr>
+        <td>Nama:</td>
+        <td>$user->name</td>
+    </tr>
+    <tr>
+        <td>Jadwal:</td>
+        <td>$schedule->start - $schedule->end</td>
+    </tr>
+    <tr>
+        <td>Kode Verifikasi:</td>
+        <td>$schedule->verification_code</td>
+    </tr>
+</table>
+        ");
+        if(!$mail->send()) {
+            return back()->with("error", "Failed to send email $mail->ErrorInfo");
+        } else {
+            return back()->with("success", "Email is sent");
+        }
     }
 
     public function proof() {
