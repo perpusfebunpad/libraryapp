@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -15,7 +16,7 @@ class AuthController extends Controller
 
     public function authenticate(Request $request) {
         $rules = [
-            "npm" => "required|numeric|digits_between:12,12",
+            "npm" => "required|numeric|digits_between:12,18",
             "password" => "required"
         ];
 
@@ -39,7 +40,12 @@ class AuthController extends Controller
             "phone_number" => "required|numeric|digits_between:10,14",
             "departement" => "required", 
             "password" => "required|min:8|confirmed",
+            "status" => "required",
         ]);
+
+        if(Str::length($validData["npm"]) !== 18 && $validData["status"] !== "mahasiswa") {
+            return redirect("/auth/register")->with("error", "Invalid NIP to become Dosen or Tenaga Didik");
+        }
 
         $validData["password"] = Hash::make($validData["password"]);
         $user = User::create($validData);

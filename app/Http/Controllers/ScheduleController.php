@@ -7,27 +7,37 @@ use Illuminate\Support\Str;
 use App\Models\Schedule;
 use App\Models\User;
 use Fpdf\Fpdf;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 
 
 class ScheduleController extends Controller
 {
     public function index() {
         $user = auth()->user();
-        if($user->schedule !== null && $user->schedule->expired() && $user->schedule->destroyable()) {
+        $schedules = Schedule::where("user_id", $user->id)->orderBy("start")->get();
+        $latest_schedule = count($schedules) > 0 ? $schedules[0] : null;
+        
+        if($latest_schedule && $latest_schedule->invalid()) {
+            // TODO: change the action if the latest schedule is invalid
             Schedule::destroy($user->schedule->id);
         }
-        return view("schedule");
+
+        return view("schedule", [
+            "user_has_valid_schedule" => count($schedules) > 0 && !$latest_schedule->invalid(),
+            "user_schedules" => $schedules,
+            "user_latest_schedule" => $latest_schedule,
+        ]);
     }
 
     public function make(Request $request) {
         $user = auth()->user();
+        $schedules = Schedule::where("user_id", $user->id)->orderBy("start")->get();
+        $latest_schedule = count($schedules) > 0 ? $schedules[0] : null;
         $one_hour = 60 * 60;
 
-        // Check if user already have a schedule if it's already expired destroy the last schedule
-        if($user->schedule != null) {
-            if($user->schedule->expired() && $user->schedule->destroyable()) {
+        // Check if user already have a schedule if it's already invalid do something
+        if(count($schedules) > 0) {
+            if($latest_schedule->invalid()) {
+                // TODO: change the action if the latest schedule is invalid
                 Schedule::destroy($user->schedule->id);
             } else {
                 return back()->with("error", "Tidak bisa maelakukan registrasi apabila anda sudah memiliki jadwal untuk minggu ini");
@@ -79,49 +89,7 @@ class ScheduleController extends Controller
 
         $schedule = Schedule::create($new_data);
 
-        return back()->with("success", "Schedule created");
-    }
-
-    public function get_email() {
-        $user = auth()->user();
-        if($user->schedule === null)
-            return back()->with("error", "You don't have any schedule");
-        $schedule = $user->schedule;
-        $mail = new PHPMailer();
-        $mail->isSMTP();
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER; // TODO: set into SMTP::DEBUG_OFF on production
-        $mail->Host = "smtp.gmail.com";
-        $mail->Port = 587;
-        $mail->SMTPSecure = "tls";
-        $mail->SMTPAuth = true;
-        $mail->isHTML(true);
-        $mail->Username = env("MAIL_USERNAME");
-        $mail->Password = env("MAIL_PASSWORD");
-        $mail->setFrom(env("MAIL_USERNAME"), "Noreply");
-        $mail->addAddress($user->email);
-        $mail->Subject = "Bukti registrasi Jadwal akses Database Refinitiv FEB UNPAD";
-        $mail->msgHTML("
-<h1>Bukti registrasi Jadwal akses Database Refinitiv FEB UNPAD</h1>
-<table>
-    <tr>
-        <td>Nama:</td>
-        <td>$user->name</td>
-    </tr>
-    <tr>
-        <td>Jadwal:</td>
-        <td>$schedule->start - $schedule->end</td>
-    </tr>
-    <tr>
-        <td>Kode Verifikasi:</td>
-        <td>$schedule->verification_code</td>
-    </tr>
-</table>
-        ");
-        if(!$mail->send()) {
-            return back()->with("error", "Failed to send email $mail->ErrorInfo");
-        } else {
-            return back()->with("success", "Email is sent");
-        }
+        return back()->with("success", "Schedule created for $schedule->start - $schedule->end is created");
     }
 
     public function proof() {

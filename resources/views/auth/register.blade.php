@@ -9,6 +9,7 @@
 <main class="w-full flex justify-center">
     <div class="my-2 max-w-md">
         <h1 class="text-3xl mb-6 text-center">Registrasi ke Aplikasi Perpustakaan FEB UNPAD</h1>
+        @include("_utils.flash")
         <form action="/auth/register" method="post">
             @csrf
             <div class="mb-6">
@@ -26,16 +27,14 @@
                 @enderror
             </div>
             <div class="mb-6">
-                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
-                <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="example@example.com" value='{{ old("email") }}' required>
-                @error("email")
-                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                @enderror
-            </div>
-            <div class="mb-6">
-                <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Phone Number</label>
-                <input type="text" id="phone_number" name="phone_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="08xxxxxxxxxx" value='{{ old("phone_number") }}' required>
-                @error("phone_number")
+                <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                <input type="hidden" name="status" value="MAHASISWA">
+                <select name="status" disabled id="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option id="status_mahasiswa" value="MAHASISWA" selected>Mahasiswa</option>
+                    <option id="status_dosen" value="DOSEN">Dosen</option>
+                    <option id="status_tenaga_didik" value="TENAGA_DIDIK">Tenaga Didik</option>
+                </select>
+                @error("status")
                     <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
             </div>
@@ -66,6 +65,21 @@
                 @enderror
             </div>
             <div class="mb-6">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
+                <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="example@example.com" value='{{ old("email") }}' required>
+                @error("email")
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="mb-6">
+                <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Phone Number</label>
+                <input type="text" id="phone_number" name="phone_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="08xxxxxxxxxx" value='{{ old("phone_number") }}' required>
+                @error("phone_number")
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
                 <input type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                 @error("password")
@@ -86,4 +100,24 @@
         </div>
     </div>
 </main>
+
+<script>
+    const statusInput = document.getElementById("status");
+    const statusValueMahasiswa = document.getElementById("status_mahasiswa");
+    const statusValueDosen = document.getElementById("status_dosen");
+    const statusValueTenagaDidik = document.getElementById("status_tenaga_didik");
+    const npmInput = document.getElementById("npm");
+    npmInput.addEventListener("input", ev => {
+        if(npmInput.value.length === 18) {
+            statusInput.disabled = false;
+            statusValueDosen.selected = true;
+            statusValueMahasiswa.hidden = true;
+        } else {
+            statusValueMahasiswa.hidden = false;
+            statusInput.disabled = true;
+            statusValueMahasiswa.selected = true;
+        }
+    })
+</script>
+
 @endsection

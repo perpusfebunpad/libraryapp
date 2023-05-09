@@ -14,7 +14,9 @@ class AdminCloseScheduleController extends Controller
      */
     public function index()
     {
-        //
+        return view("admin.close-schedules.index", [
+            "closed_schedules" => CloseSchedule::all(),
+        ]);
     }
 
     /**
@@ -24,7 +26,7 @@ class AdminCloseScheduleController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.close-schedules.create");
     }
 
     /**
@@ -35,7 +37,23 @@ class AdminCloseScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            "start_date" => "required|date",
+            "start_time" => "required|date_format:H:i",
+            "end_date" => "required|date",
+            "end_time" => "required|date_format:H:i",
+            "close_reason" => "required",
+        ]);
+
+        $start = $data["start_date"] . " " . $data["start_time"] . ":" . date("i", strtotime($data["start_time"]));
+        $end = $data["end_date"] . " " . $data["end_time"] . ":" . date("i", strtotime($data["end_time"]));
+        $close = CloseSchedule::create([
+            "start" => $start,
+            "end" => $end,
+            "reason" => $data["close_reason"],
+        ]);
+
+        return redirect("/_/closed-schedules")->with("success", "Successfully creating a new close schedules");
     }
 
     /**
@@ -67,8 +85,9 @@ class AdminCloseScheduleController extends Controller
      * @param  \App\Models\CloseSchedule  $closeSchedule
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CloseSchedule $closeSchedule)
+    public function destroy(CloseSchedule $cs)
     {
-        //
+        CloseSchedule::destroy($cs->id);
+        return redirect("/_/closed-schedules")->with("success", "Successfully deleting a close schedules");    
     }
 }

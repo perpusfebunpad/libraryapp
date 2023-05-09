@@ -32,7 +32,7 @@ class Schedule extends Model
         return $now > strtotime($this->end);
     }
 
-    public function destroyable() {
-        return strtotime("previous Sunday") > strtotime($this->start);
+    public function invalid() {
+        return $this->expired() && strtotime("previous Sunday") > strtotime($this->start);
     }
 }

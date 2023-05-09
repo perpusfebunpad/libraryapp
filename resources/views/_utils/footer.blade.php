@@ -8,7 +8,7 @@
                 <li class="mb-4">
                     <a href="#" class="flex items-center hover:underline">
                         <img src="/static/icons/map-pin.svg" class="h-8 mr-3" alt="Address">
-                        Jln. Raya Bandung-Sumedang Km. 21 Jatinangor, Kab. Sumedang 45363 Jawa Barat
+                        Jl. Dipati Ukur No.35, Lebakgede, Kecamatan Coblong, Kota Bandung, Jawa Barat 40132
                     </a>
                     <a href="#" class="flex items-center hover:underline">
                         <img src="/static/icons/mail.svg" class="h-8 mr-3" alt="Address">

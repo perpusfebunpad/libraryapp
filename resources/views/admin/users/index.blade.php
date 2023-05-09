@@ -1,13 +1,13 @@
 @extends("_utils.layout")
 
 @section("head")
-<title>All users | Website Database Refinitiv Perpustakaan FEB UNPAD</title>
+<title>Semua Pengguna | Website Database Refinitiv Perpustakaan FEB UNPAD</title>
 @endsection
 
 @section("body")
 @include("_utils.navbar")
 <div class="mt-6 relative overflow-x-auto px-6">
-    <h1 class="text-5xl mr-5 mb-5">All Users</h1>
+    <h1 class="text-5xl mr-5 mb-5">Semua Pengguna</h1>
     <a href="/_/users/create" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
         New
     </a>
@@ -62,7 +62,7 @@
                 </td>
                 <td class="px-6 py-4">
                     <a href="/_/users/edit/{{$user->npm}}" type="button" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">Update</a>
-                    <a href="/_/users/delete/{{$user->npm}}" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</a>
+                    <a href="/_/users/delete/{{$user->npm}}" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onclick="return confirm('Are you sure?')">Delete</a>
                 </td>
             </tr>
             @endforeach
