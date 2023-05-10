@@ -75,6 +75,7 @@ class ScheduleController extends Controller
         if(count($schedules_with_same_time) > 0) {
             return back()->with("error", "Jadwal akses untuk waktu ini sudah diambil tolong pilih waktu yang lainnya");
         }
+
         foreach(CloseSchedule::nearests() as $nearest_close_schedule) {
             if($nearest_close_schedule != null && $nearest_close_schedule->clash_with($start, $end)) {
                 return back()->with("error", "Jadwal ini tidak bisa diambil karena perpustakaan akan tutup dari $nearest_close_schedule->start sampai $nearest_close_schedule->end");

@@ -32,7 +32,21 @@ class Schedule extends Model
         return $now > strtotime($this->end);
     }
 
+    public function closed() {
+        foreach(CloseSchedule::nearests() as $nearest_close_schedule) {
+            if($nearest_close_schedule != null && $nearest_close_schedule->clash_with($this->start, $this->end)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function invalid() {
-        return $this->expired() && strtotime("previous Sunday") > strtotime($this->start);
+        if($this->expired())
+            return true;
+        if(strtotime("previous Sunday") > strtotime($this->start))
+            return true;
+        if($this->closed())
+            return true;
     }
 }
