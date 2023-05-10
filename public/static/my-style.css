@@ -1,3 +1,11 @@
+.bg-image-refenitiv {
+    background-image: url("/static/background-1.jpeg");
+}
+
+.bg-opac {
+    opacity: 75%;
+}
+
 .bg-unpad-yellow {
     background-color: #f3ac05;
 }
@@ -12,6 +20,10 @@
 
 .text-unpad-light {
     color: #faf8eb;
+}
+
+.text-unpad-bit-light {
+    color: #8d8d8b;
 }
 
 .text-unpad-dark {
