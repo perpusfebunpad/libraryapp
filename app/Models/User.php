@@ -35,7 +35,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function schedule() {
-        return $this->hasOne(Schedule::class);
+    public function schedules() {
+        return $this->hasMany(Schedule::class);
+    }
+
+    public function valid_schedules() {
+        return $this->schedules->filter(function($schedule){
+            return !$schedule->invalid();
+        });
     }
 }

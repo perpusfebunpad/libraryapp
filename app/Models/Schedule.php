@@ -17,6 +17,13 @@ class Schedule extends Model
         return $this->belongsTo(User::class, "user_id");
     }
 
+    public static function get_user_valid_schedules(int $user_id) {
+        return static::where("user_id", $user_id)
+            ->orderBy("start", "desc")
+            ->get()
+            ->filter(fn($schedule) => !$schedule->invalid());
+    }
+
     public function available() {
         $now = time();
         return $now < strtotime($this->start);
@@ -48,5 +55,6 @@ class Schedule extends Model
             return true;
         if($this->closed())
             return true;
+        return false;
     }
 }

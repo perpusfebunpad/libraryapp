@@ -14,11 +14,13 @@ class ScheduleController extends Controller
 {
     public function index() {
         $user = auth()->user();
-        $schedules = Schedule::where("user_id", $user->id)->orderBy("start", "desc")->get();
+        $schedules = Schedule::get_user_valid_schedules($user->id);
         $latest_schedule = null;
-        if(count($schedules) > 0 && !$schedules->first()->invalid()) {
+        if($schedules->count() > 0 && !$schedules->first()->invalid()) {
             $latest_schedule = $schedules->first();
         }
+
+        // dd([$latest_schedule, $schedules->first()->toArray()]);
 
         return view("schedule", [
             "user_schedules" => $schedules,
@@ -28,8 +30,8 @@ class ScheduleController extends Controller
 
     public function make(Request $request) {
         $user = auth()->user();
-        $schedules = Schedule::where("user_id", $user->id)->orderBy("start", "desc")->get();
-        
+        $schedules = Schedule::get_user_valid_schedules($user->id);
+
         // Check if already have schedule and if it's a valid schedule don't let to register
         if(count($schedules) > 0 && !$schedules->first()->invalid()) {
             return back()->with("error", "Tidak bisa maelakukan registrasi apabila anda sudah memiliki jadwal untuk minggu ini");
@@ -101,10 +103,11 @@ class ScheduleController extends Controller
 
     public function proof() {
         $user = auth()->user();
-        if($user->schedule == null)
+        $schedules = Schedule::get_user_valid_schedules($user->id);
+        if(count($schedules) == 0)
             return redirect("/schedule");
-        $schedule = $user->schedule;
-        $pdf = new Fpdf();
+        $schedule = $schedules->first();
+        $pdf = new Fpdf('L', 'mm', array(150,100));
         $pdf->SetTitle("Bukti registrasi jadwal database refinitiv");
         $pdf->AddPage();
         $pdf->SetFont('Arial', 'B', 24);
@@ -112,13 +115,17 @@ class ScheduleController extends Controller
         $pdf->Ln(10);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Write(5, "Nama : $user->name");
-        $pdf->Ln(5);
+        $pdf->Ln(7);
         $pdf->Write(5, "NPM : $user->npm");
-        $pdf->Ln(5);
+        $pdf->Ln(7);
         $pdf->Write(5, "Mulai : $schedule->start");
-        $pdf->Ln(5);
+        $pdf->Ln(7);
         $pdf->Write(5, "Akhir : $schedule->end");
-        $pdf->Ln(5);
+        if($schedule->friend_name != null && $schedule->friend_npm != null) {
+            $pdf->Ln(7);
+            $pdf->Write(5, "Teman : $schedule->friend_name - $schedule->friend_npm");
+        }
+        $pdf->Ln(7);
         $pdf->Write(5, "Kode Jadwal : $schedule->verification_code");
         $pdf->Output('D', "bukti-registrasi.pdf");
         // return redirect("/schedule");
