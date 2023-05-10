@@ -39,26 +39,29 @@
                 @enderror
             </div>
             <div class="mb-6">
-                <label for="departement" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Departement</label>
+                <label for="departement" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Study Program</label>
                 <select name="departement" id="departement" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="S1_AKUNTANSI">S1 - Akuntansi</option>
+                    <option value="D4_AKUNTANSI_PERPAJAKAN">D4 - Akuntansi Perpajakan</option>
+                    <option value="D4_AKUNTANSI_SEKTOR_PUBLIK">D4 - Akuntansi Sektor Publik</option>
+                    <option value="D4_BISNIS_INTERNASIONAL">D4 - Bisnis Internasional</option>
+                    <option value="D4_PEMASARAN_DIGITAL">D4 - Pemasaran Digital</option>
+                    <option value="S1_AKUNTANSI" selected>S1 - Akuntansi</option>
                     <option value="S1_MANAJEMEN">S1 - Manajemen</option>
                     <option value="S1_MANAJEMEN">S1 - Manajemen</option>
                     <option value="S1_ILMU_EKONOMI">S1 - Ilmu Ekonomi</option>
                     <option value="S1_BISNIS_DIGITAL">S1 - Bisnis Digital</option>
                     <option value="S1_AKUNTANSI_SEKTOR_PUBLIK">S1 - Akuntansi Sektor Publik</option>
                     <option value="PROFESI_AKUNTANSI">Profesi Akuntansi</option>
-                    <option value="S2_EKONOMI">S2 Ekonomi</option>
-                    <option value="S2_ILMU_EKONOMI">S2 Ilmu Ekonomi</option>
-                    <option value="S2_ILMU_MANAJEMEN">S2 Ilmu Manajemen</option> 
-                    <option value="S2_MANAJEMEN">S2 Manajemen</option>
-                    <option value="S2_AKUNTANSI">S2 Akuntansi</option>
-                    <option value="S2_EKONOMI_TERAPAN">S2 Ekonomi Terapan</option>
-                    <option value="S2_MANAJEMEN">S2 Manajemen</option>
-                    <option value="S2_MANAJEMEN_MIKRO_TERPADU">S2 Manajemen Mikro Terpadu</option>
-                    <option value="S3_EKONOMI">S3 Ekonomi</option>
-                    <option value="S3_MANAJEMEN">S3 Manajemen</option>
-                    <option value="S3_AKUNTANSI">S3 Akuntansi</option>
+                    <option value="S2_ILMU_EKONOMI">S2 - Ilmu Ekonomi</option>
+                    <option value="S2_ILMU_MANAJEMEN">S2 - Ilmu Manajemen</option> 
+                    <option value="S2_MANAJEMEN">S2 - Manajemen</option>
+                    <option value="S2_AKUNTANSI">S2 - Akuntansi</option>
+                    <option value="S2_EKONOMI_TERAPAN">S2 - Ekonomi Terapan</option>
+                    <option value="S2_MANAJEMEN">S2 - Manajemen</option>
+                    <option value="S2_MANAJEMEN_MIKRO_TERPADU">S2 - Manajemen Mikro Terpadu</option>
+                    <option value="S3_EKONOMI">S3 - Ekonomi</option>
+                    <option value="S3_MANAJEMEN">S3 - Manajemen</option>
+                    <option value="S3_AKUNTANSI">S3 - Akuntansi</option>
                 </select>   
                 @error("departement")
                     <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>

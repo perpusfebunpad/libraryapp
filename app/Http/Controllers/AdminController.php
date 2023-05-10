@@ -30,8 +30,4 @@ class AdminController extends Controller
             return back()->with("error", "Jadwal dengan kode $vcode tidak ditemukan.");
         }
     }
-
-    public function create_closing_schedule(Request $request) {
-        
-    }
 }

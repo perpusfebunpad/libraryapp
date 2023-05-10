@@ -33,7 +33,6 @@ return new class extends Migration
                 "S1_BISNIS_DIGITAL", 
                 "S1_AKUNTANSI_SEKTOR_PUBLIK",
                 "PROFESI_AKUNTANSI",
-                "S2_EKONOMI",
                 "S2_ILMU_EKONOMI",
                 "S2_ILMU_MANAJEMEN", 
                 "S2_MANAJEMEN",
