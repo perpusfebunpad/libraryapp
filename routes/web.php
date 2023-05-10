@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminCloseScheduleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view("/", "index", [ "close_schedules" => \App\Models\CloseSchedule::all(), ]);
-Route::view("/schedule", "schedule")->middleware("auth");
+Route::get("/", [ HomeController::class, "index" ]);
 Route::redirect("/home", "/");
 
 Route::prefix("/schedule")->middleware("auth")->controller(ScheduleController::class)->group(function(){
@@ -42,7 +42,7 @@ Route::prefix("/_")->middleware(["auth", "can:moderate"])->group(function(){
         Route::get("/delete/{user:npm}", "destroy");
     });
 
-    Route::prefix("/closed-schedules")->controller(AdminCloseScheduleController::class)->group(function(){
+    Route::prefix("/close-schedules")->controller(AdminCloseScheduleController::class)->group(function(){
         Route::get("/", "index");
         Route::get("/create", "create");
         Route::post("/", "store");

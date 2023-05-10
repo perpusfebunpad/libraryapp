@@ -8,7 +8,7 @@
 @section("body")
 @include("_utils.navbar")
 <main class="flex justify-center p-10">
-    @if($user_has_valid_schedule)    
+    @if($user_latest_schedule !== null)
     <div class="max-w-md w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Your Schedule</h5>
         @include("_utils.flash")

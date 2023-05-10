@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CloseSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Schedule;
@@ -13,16 +14,13 @@ class ScheduleController extends Controller
 {
     public function index() {
         $user = auth()->user();
-        $schedules = Schedule::where("user_id", $user->id)->orderBy("start")->get();
-        $latest_schedule = count($schedules) > 0 ? $schedules[0] : null;
-        
-        if($latest_schedule && $latest_schedule->invalid()) {
-            // TODO: change the action if the latest schedule is invalid
-            Schedule::destroy($user->schedule->id);
+        $schedules = Schedule::where("user_id", $user->id)->orderBy("start", "desc")->get();
+        $latest_schedule = null;
+        if(count($schedules) > 0 && !$schedules->first()->invalid()) {
+            $latest_schedule = $schedules->first();
         }
 
         return view("schedule", [
-            "user_has_valid_schedule" => count($schedules) > 0 && !$latest_schedule->invalid(),
             "user_schedules" => $schedules,
             "user_latest_schedule" => $latest_schedule,
         ]);
@@ -30,19 +28,13 @@ class ScheduleController extends Controller
 
     public function make(Request $request) {
         $user = auth()->user();
-        $schedules = Schedule::where("user_id", $user->id)->orderBy("start")->get();
-        $latest_schedule = count($schedules) > 0 ? $schedules[0] : null;
-        $one_hour = 60 * 60;
-
-        // Check if user already have a schedule if it's already invalid do something
-        if(count($schedules) > 0) {
-            if($latest_schedule->invalid()) {
-                // TODO: change the action if the latest schedule is invalid
-                Schedule::destroy($user->schedule->id);
-            } else {
-                return back()->with("error", "Tidak bisa maelakukan registrasi apabila anda sudah memiliki jadwal untuk minggu ini");
-            }
+        $schedules = Schedule::where("user_id", $user->id)->orderBy("start", "desc")->get();
+        
+        // Check if already have schedule and if it's a valid schedule don't let to register
+        if(count($schedules) > 0 && !$schedules->first()->invalid()) {
+            return back()->with("error", "Tidak bisa maelakukan registrasi apabila anda sudah memiliki jadwal untuk minggu ini");
         }
+        $one_hour = 60 * 60;
 
         $rules = [
             "session" => "required",
@@ -58,22 +50,36 @@ class ScheduleController extends Controller
 
         $date_php_time = strtotime($data["date"]);
 
+        $now = time();
+        $start = $data["date"] . " " .  $data["session"];
+        $end = date("Y-m-d H:i:s", strtotime($start) + $one_hour);
+
         /** Check invalid time registration */
         // Check if user claim an session 4 in Friday
         if(date("w", $date_php_time) === "5" && $data["session"] == "11:00:00") {
             return back()->with("error", "Tidak bisa mendaftarkan jadwal di hari Jum'at sesi 4 karena perpustakaan tutup.");
         }
+
         // Check if user claim schedule in saturday or sunday
         if(date("w", $date_php_time) === "0" || date("w", $date_php_time) === "6") {
             return back()->with("error", "Tidak bisa mendaftarkan jadwal di hari Sabtu dan Minggu karena perpustakaan tutup");
         }
 
-        $now = time();
-        $start = $data["date"] . " " .  $data["session"];
-        $end = date("Y-m-d H:i:s", strtotime($start) + $one_hour);
-
-        if($now > strtotime($end))
+        // Check if user claim in past time
+        if($now > strtotime($end)) {
             return back()->with("error", "Tidak bisa mendaftarkan jadwal di hari yang sudah lewat");
+        }
+
+        // Check if user claim a claimed schedule
+        $schedules_with_same_time = Schedule::where("start", $start)->get();
+        if(count($schedules_with_same_time) > 0) {
+            return back()->with("error", "Jadwal akses untuk waktu ini sudah diambil tolong pilih waktu yang lainnya");
+        }
+        foreach(CloseSchedule::nearests() as $nearest_close_schedule) {
+            if($nearest_close_schedule != null && $nearest_close_schedule->clash_with($start, $end)) {
+                return back()->with("error", "Jadwal ini tidak bisa diambil karena perpustakaan akan tutup dari $nearest_close_schedule->start sampai $nearest_close_schedule->end");
+            }
+        }
 
         $new_data = [
             "start" => $start,

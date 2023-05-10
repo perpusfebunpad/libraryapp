@@ -11,7 +11,7 @@
     <div class="border-b border-black pb-5 mb-5">
         <h1 class="text-5xl">Tambahkan Jadwal Tutup</h1>
     </div>
-    <form class="p-3 w-full mt-6" action="/_/closed-schedules" method="post">
+    <form class="p-3 w-full mt-6" action="/_/close-schedules" method="post">
         @csrf
         <div class="mt-3">
             <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal awal tutup</label>

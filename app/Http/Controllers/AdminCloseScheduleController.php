@@ -53,7 +53,7 @@ class AdminCloseScheduleController extends Controller
             "reason" => $data["close_reason"],
         ]);
 
-        return redirect("/_/closed-schedules")->with("success", "Successfully creating a new close schedules");
+        return redirect("/_/close-schedules")->with("success", "Successfully creating a new close schedules");
     }
 
     /**
@@ -88,6 +88,6 @@ class AdminCloseScheduleController extends Controller
     public function destroy(CloseSchedule $cs)
     {
         CloseSchedule::destroy($cs->id);
-        return redirect("/_/closed-schedules")->with("success", "Successfully deleting a close schedules");    
+        return redirect("/_/close-schedules")->with("success", "Successfully deleting a close schedules");
     }
 }
