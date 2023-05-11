@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
 
   app:
-    image: personal-web
+    image: libraryapp
     build:
       args:
         user: ${DB_USERNAME}

@@ -43,7 +43,7 @@ class AuthController extends Controller
             "status" => "required",
         ]);
 
-        if(Str::length($validData["npm"]) !== 18 && $validData["status"] !== "mahasiswa") {
+        if(Str::length($validData["npm"]) !== 18 && $validData["status"] !== "MAHASISWA") {
             return redirect("/auth/register")->with("error", "Invalid NIP to become Dosen or Tenaga Didik");
         }
 
