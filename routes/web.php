@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdminCloseScheduleController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\Admin;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ScheduleController;
@@ -20,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get("/", [ HomeController::class, "index" ]);
+Route::get("/closing-schedules", [ HomeController::class, "close_schedules" ]);
 Route::redirect("/home", "/");
 
 Route::prefix("/schedule")->middleware("auth")->controller(ScheduleController::class)->group(function(){
@@ -30,10 +29,10 @@ Route::prefix("/schedule")->middleware("auth")->controller(ScheduleController::c
 });
 
 Route::prefix("/_")->middleware(["auth", "can:moderate"])->group(function(){
-    Route::get("/", [AdminController::class, "index"]);
-    Route::post("/verify-schedule", [AdminController::class, "verify_schedule"]);
+    Route::get("/", [Admin\BaseController::class, "index"]);
+    Route::post("/verify-schedule", [Admin\BaseController::class, "verify_schedule"]);
 
-    Route::prefix("/users")->controller(AdminUserController::class)->group(function(){
+    Route::prefix("/users")->controller(Admin\UserController::class)->group(function(){
         Route::get("/", "index");
         Route::get("/create", "create");
         Route::post("/", "store");
@@ -42,13 +41,22 @@ Route::prefix("/_")->middleware(["auth", "can:moderate"])->group(function(){
         Route::get("/delete/{user:npm}", "destroy");
     });
 
-    Route::prefix("/close-schedules")->controller(AdminCloseScheduleController::class)->group(function(){
+    Route::prefix("/close-schedules")->controller(Admin\CloseScheduleController::class)->group(function(){
         Route::get("/", "index");
         Route::get("/create", "create");
         Route::post("/", "store");
         Route::get("/edit/{cs}", "edit");
         Route::put("/edit/{cs}", "update");
         Route::get("/delete/{cs}", "destroy");
+    });
+
+    Route::prefix("/schedules")->controller(Admin\ScheduleController::class)->group(function(){
+        Route::get("/", "index");
+        Route::get("/create", "create");
+        Route::post("/", "store");
+        Route::get("/edit/{schedule}", "edit");
+        Route::put("/edit/{schedule}", "update");
+        Route::get("/delete/{schedule}", "destroy");
     });
 
 });

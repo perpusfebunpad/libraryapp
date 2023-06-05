@@ -1,63 +1,18 @@
 @extends("_utils.layout")
 
 @section("head")
-<title>Aplikasi Perpustakaan FEB UNPAD</title>
+<title>Tambahkan Jadwal</title>
 <script src="/static/datepicker.min.js"></script>
 @endsection
 
 @section("body")
-<section id="body" class="min-h-screen">
+<main class="min-h-screen">
     @include("_utils.navbar")
-    <main class="flex justify-center p-10">
-        @if($user_latest_schedule !== null)
-        <div class="max-w-md w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Your Schedule</h5>
-            @include("_utils.flash")
-            <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
-                <div class="flex flex-col pb-3">
-                    <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Waktu</dt>
-                    <dd class="text-lg font-semibold">{{ $user_latest_schedule->start }} - {{ $user_latest_schedule->end }}</dd>
-                </div>
-                <div class="flex flex-col pt-3">
-                    <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Status</dt>
-                    <dd class="text-lg font-semibold">
-                        @if($user_latest_schedule->active())
-                        Active
-                        @elseif($user_latest_schedule->expired())
-                        Expired
-                        @else
-                        Available
-                        @endif
-                    </dd>
-                </div>
-                <div class="flex flex-col pt-3">
-                    <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Teman</dt>
-                    <dd class="text-lg font-semibold">
-                        {{ $user_latest_schedule->friend_name !== null ? $user_latest_schedule->friend_name . " - " : "N/A" }} {{ $user_latest_schedule->friend_npm !== null ? $user_latest_schedule->friend_npm : "" }}
-                    </dd>
-                </div>
-                <div class="flex flex-col pt-3">
-                    <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Bukti Registrasi</dt>
-                    <a href="/schedule/proof" class="mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Download Bukti Registrasi</a>
-                </div>
-                <div class="flex flex-col py-3">
-                    <dt class="mb-1 text-red-500 md:text-lg dark:text-red-400">*Catatan</dt>
-                    <dd class="text-sm font-light text-red-500">Harap mendownload bukti registrasi dan membawa KTM untuk verifikasi di perpustakaan</dd>
-                </div>
-            </dl>
-        </div>
-    
-        @else
-        <div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="w-full justify-center flex">
+        <div class="w-full mt-10 max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
             <form class="space-y-3" action="/schedule" method="post">
                 @csrf
-                <h5 class="text-xl font-medium text-gray-900 dark:text-white">Dapatkan jadwal penggunaan database refinitiv</h5>
-                <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400 text-sm">
-                    <li>Hari Sabtu dan Minggu perpustakaan tutup</li>
-                    <li>Hari Jum'at sesi 4 perpustakaan tutup</li>
-                    <li>Pada tanggal cuti bersama perpustakaan ditutup</li>
-                    <li>Pembuatan jadwal hanya bisa dibuat sekali seminggu</li>
-                </ul>
+                <h5 class="text-xl font-medium text-gray-900 dark:text-white">Tambahkan Jadwal</h5>
                 @if(session()->has("error"))
                 <div class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
                     <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
@@ -121,9 +76,8 @@
                 <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Daftarkan jadwal</button>
             </form>
         </div>
-        @endif    
-    </main>
-</section>
+    </div>
+</main>
 
 @include("_utils.footer")
 

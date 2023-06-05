@@ -13,4 +13,11 @@ class HomeController extends Controller
             "nearest_close_schedule" => $nearest_close_schedule,
         ]);
     }
+
+    public function close_schedules() {
+        $nearest_close_schedules = CloseSchedule::nearests();
+        return view("close-schedules", [
+            "schedules" => $nearest_close_schedules,
+        ]);
+    }
 }

@@ -1,5 +1,7 @@
 .bg-image-refenitiv {
-    background-image: url("/static/background-1.jpeg");
+    background-image: url("/static/perpusfebunpad-img.jpeg");
+    background-position: center;
+    background-size: cover;
 }
 
 .bg-opac {
@@ -10,11 +12,19 @@
     background-color: #f3ac05;
 }
 
+.hover\:bg-unpad-yellow:hover {
+    background-color: #f3ac05;    
+}
+
 .bg-unpad-light {
     background-color: #faf8eb;
 }
 
-.bg-unpad-darl {
+.hover\:bg-unpad-light:hover {
+    background-color: #faf8eb;
+}
+
+.bg-unpad-dark {
     background-color: #221c16;
 }
 
@@ -50,6 +60,7 @@
     -webkit-animation: marquee 15s linear infinite;
     animation: marquee 15s linear infinite;
 }
+
 
 @-moz-keyframes marquee {
     0%   { -moz-transform: translateX(-100%); }

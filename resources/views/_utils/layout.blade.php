@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +10,7 @@
     <script src="/static/flowbite.min.js" defer></script>
     @yield("head")
 </head>
-<body>
+<body class="h-full @if(isset($unpad_color_set) && $unpad_color_set) bg-unpad-light @endif">
     @yield("body")
 </body>
 </html>
