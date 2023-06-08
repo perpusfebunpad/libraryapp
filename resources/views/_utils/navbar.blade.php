@@ -1,7 +1,7 @@
-<nav class="@if(isset($sticky_navbar) && $sticky_navbar) sticky top-0 z-49 @endif">
+<nav class="@if(isset($sticky_navbar) && $sticky_navbar) fixed w-full bg-unpad-yellow left-0 top-0 z-49 @endif">
     <div id="real-navbar" class="sm:px-2 md:px-10 py-1 w-full flex justify-between items-center rounded-b
     @if(isset($sticky_navbar) && $sticky_navbar) 
-    text-white hover:bg-unpad-light hover:text-black absolute top-0 
+    text-white absolute top-0
     @else
     bg-unpad-yellow text-unpad-light shadow shadow-lg
     @endif">
@@ -10,11 +10,11 @@
                 <img src="/static/logo-unpad.png" class="h-12" alt="Logo UNPAD">
             </a>
             <span class="ml-2 mr-4">|</span>
-            <a href="/">Database Refinitiv FEB UNPAD</a>
+            <a href="/">Refinitiv Perpustakaan FEB UNPAD</a>
         </div>
         <div class="text-center">
             <button type="button" data-drawer-target="drawer-right-example" data-drawer-show="drawer-right-example" data-drawer-placement="right" aria-controls="drawer-right-example">
-                Menu
+                <img src="/static/icons-light/menu.svg" alt="Menu">
             </button>
         </div>
     </div>
@@ -42,7 +42,13 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">Schedule</span>
                 </a>
             </li>
-
+            <li>
+                <a href="/auth/profile" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <img src="/static/icons/user.svg" alt="user Icon">
+                    <span class="flex-1 ml-3 whitespace-nowrap">{{ auth()->user()->name }}</span>
+                </a>
+            </li>
+            
             @can("moderate")
             <li>
                 <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
@@ -99,11 +105,9 @@
     const realNavbar = document.getElementById('real-navbar');
     addEventListener("scroll", ev => {
         if(scrollY !== 0) {
-            realNavbar.classList.add('bg-unpad-light', 'text-black')
-            realNavbar.classList.remove('text-white')
+            realNavbar.classList.add('bg-unpad-yellow')
         } else {
-            realNavbar.classList.add('text-white')
-            realNavbar.classList.remove('bg-unpad-light', 'text-black')
+            realNavbar.classList.remove('bg-unpad-yellow')
         }
     })    
 </script>

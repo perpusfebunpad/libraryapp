@@ -52,6 +52,12 @@ class UserController extends Controller
         return redirect("/_/users")->with("success", "Successfully create a new user");
     }
 
+    public function show(User $user) {
+        return view("admin.users.show", [
+            "user" => $user,
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

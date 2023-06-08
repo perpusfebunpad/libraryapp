@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get("/", [ HomeController::class, "index" ]);
 Route::get("/closing-schedules", [ HomeController::class, "close_schedules" ]);
 Route::redirect("/home", "/");
+Route::get("/auth/profile", [HomeController::class, "profile"])->middleware("auth");
 
 Route::prefix("/schedule")->middleware("auth")->controller(ScheduleController::class)->group(function(){
     Route::get("/", "index");
@@ -36,6 +37,7 @@ Route::prefix("/_")->middleware(["auth", "can:moderate"])->group(function(){
         Route::get("/", "index");
         Route::get("/create", "create");
         Route::post("/", "store");
+        Route::get("/detail/{user:npm}", "show");
         Route::get("/edit/{user:npm}", "edit");
         Route::put("/edit/{user:npm}", "update");
         Route::get("/delete/{user:npm}", "destroy");

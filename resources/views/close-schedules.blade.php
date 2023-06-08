@@ -10,25 +10,23 @@
 <main class="min-h-screen">
     @include("_utils.navbar")
     <div class="flex items-center justify-center flex-col">
-        <div class="px-10 sm:px-10 lg:px-15 text-lg">
-            <h1 class="text-5xl mt-5 pb-2 mb-2 border-b border-1">
-                Jadwal Tutup
-            </h1>
-            <div class="px-3">
-                <p class="font-normal">
-                    Perpustakaan memiliki   beberapa jadwal tutup sehingga aplikasi ini sudah didesain agar jadwal penggunaan tidak dapat dibuat untuk waktu-waktu tersebut.
+        <div class="px-10 sm:px-10 lg:px-15">
+            <div class="px-10 py-28 lg:py-36 my-3 border-b border-black">
+                <h3 class="text-sm md:text-md">Aplikasi Database Refinitiv FEB UNPAD</h3>
+                <h1 class="text-5xl font-extrabold text-gray-600">Jadwal Tutup</h1>
+            </div>
+            <div class="px-3 text-lg font-light">
+                <p>
+                    Perpustakaan memiliki beberapa jadwal tutup. Aplikasi ini sudah dirancang agar jadwal penggunaan tidak dapat dibuat untuk waktu-waktu tersebut. Berikut ini merupakan jadwal tutup reguler perpustakaan.
                 </p>
-                <h3 class="text-3xl mt-3 pb-2 mb-2 border-b border-1">
-                    Jadwal Reguler
-                </h3>
                 <ul class="space-y-1 mx-3 list-disc list-inside">
                     <li>Hari Sabtu dan Minggu perpustakaan tutup</li>
                     <li>Hari Jum'at sesi 4 perpustakaan tutup</li>
                     <li>Pada tanggal cuti bersama perpustakaan ditutup</li>
                     <li>Pembuatan jadwal hanya bisa dibuat sekali seminggu</li>
                 </ul>
-                <h1 class="text-3xl mt-3 pb-2 mb-4 border-b border-1">
-                    Jadwal Tidak Reguler
+                <h1 class="mt-3 pb-2 mb-4 text-lg">
+                    Selain jadwal diatas <span class="font-bold">jadwal tutup irreguler</span> akan di tampilkan pada tabel berikut
                 </h1>
                 <table class="w-full mx-3 text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -37,13 +35,10 @@
                                 ID
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Awal
+                                Waktu
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Akhir
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Actions
+                                Alasan
                             </th>
                         </tr>
                     </thead>
@@ -54,14 +49,10 @@
                                 {{ $loop->iteration }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $cs->start }}
+                                {{ $cs->start }} - {{ $cs->end }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $cs->end }}
-                            </td>
-                            <td class="px-6 py-4">
-                                <a href="/_/close-schedules/edit/{{$cs->id}}" type="button" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">Update</a>
-                                <a href="/_/close-schedules/delete/{{$cs->id}}" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onclick="return confirm('Are you sure?')">Delete</a>
+                                {{ $cs->reason }}
                             </td>
                         </tr>
                         @endforeach

@@ -14,14 +14,11 @@ class ScheduleController extends Controller
 {
     public function index() {
         $user = auth()->user();
-        $schedules = Schedule::get_user_valid_schedules($user->id);
+        $schedules = Schedule::where("user_id", auth()->user()->id)->orderBy("start", "desc")->get()->filter(fn($schedule) => !$schedule->expired());
         $latest_schedule = null;
-        if($schedules->count() > 0 && !$schedules->first()->invalid()) {
+        if($schedules->count() > 0 && !$schedules->first()->expired()) {
             $latest_schedule = $schedules->first();
         }
-
-        // dd([$latest_schedule, $schedules->first()->toArray()]);
-
         return view("schedule", [
             "user_schedules" => $schedules,
             "user_latest_schedule" => $latest_schedule,
@@ -30,12 +27,6 @@ class ScheduleController extends Controller
 
     public function make(Request $request) {
         $user = auth()->user();
-        $schedules = Schedule::get_user_valid_schedules($user->id);
-
-        // Check if already have schedule and if it's a valid schedule don't let to register
-        if(count($schedules) > 0 && !$schedules->first()->invalid()) {
-            return back()->with("error", "Tidak bisa maelakukan registrasi apabila anda sudah memiliki jadwal untuk minggu ini");
-        }
         $one_hour = 60 * 60;
 
         $rules = [
@@ -53,8 +44,18 @@ class ScheduleController extends Controller
         $date_php_time = strtotime($data["date"]);
 
         $now = time();
+        $prev_week = strtotime("previous Sunday");
+        $next_week = strtotime("next Sunday");
         $start = $data["date"] . " " .  $data["session"];
         $end = date("Y-m-d H:i:s", strtotime($start) + $one_hour);
+
+        $in_this_week_schedules = Schedule::where("user_id", $user->id)->orderBy("start", "desc")->get()->filter(fn($schedule) => $schedule->in_range($prev_week, $next_week));
+
+        // Check if already have schedule and if it's a valid schedule don't let to register
+        // TODO: fix weekly schedule
+        if(count($in_this_week_schedules) > 0 && $prev_week < strtotime($start) && strtotime($end) < $next_week) {
+            return back()->with("error", "Anda sudah mendaftarkan jadwal sebelumnya untuk minggu ini. Mohon lakukan pendaftaran lagi di minggu depan");
+        }
 
         /** Check invalid time registration */
         // Check if user claim an session 4 in Friday
@@ -77,7 +78,8 @@ class ScheduleController extends Controller
         if(count($schedules_with_same_time) > 0) {
             return back()->with("error", "Jadwal akses untuk waktu ini sudah diambil tolong pilih waktu yang lainnya");
         }
-
+        
+        // Check if there's close schedule
         foreach(CloseSchedule::nearests() as $nearest_close_schedule) {
             if($nearest_close_schedule != null && $nearest_close_schedule->clash_with($start, $end)) {
                 return back()->with("error", "Jadwal ini tidak bisa diambil karena perpustakaan akan tutup dari $nearest_close_schedule->start sampai $nearest_close_schedule->end");

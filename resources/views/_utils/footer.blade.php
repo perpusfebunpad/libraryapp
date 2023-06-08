@@ -1,6 +1,10 @@
-<footer class="bg-unpad-light flex items-center justify-center p-5">
-    <ul class="w-1/3 flex justify-between">
-        <li>
+<footer class="bg-white text-black md:flex items-center md:justify-center pt-10 p-5">
+    <div class="md:hidden text-center">
+        <a href="/">Perpustakaan FEB UNPAD</a> © 2023
+        <hr class="my-2 border border-black">
+    </div>
+    <ul class="md:w-1/2 flex justify-around md:justify-between">
+        <li class="hidden md:block">
             <a href="/">Perpustakaan FEB UNPAD</a> © 2023
         </li>
         <li>
@@ -8,6 +12,12 @@
         </li>
         <li>
             <a href="mailto:perpustakaanfebunpad@gmail.com">Contact</a>
+        </li>
+        <li>
+            <a href="https://unpad.ac.id/">UNPAD</a>
+        </li>
+        <li>
+            <a href="https://feb.unpad.ac.id/">FEB</a>
         </li>
     </ul>
 </footer>

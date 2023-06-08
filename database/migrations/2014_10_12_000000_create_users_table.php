@@ -23,6 +23,7 @@ return new class extends Migration
                 "MAHASISWA", "DOSEN", "TENAGA_DIDIK"
             ]);
             $table->enum("departement", [
+                "NONE",
                 "D4_AKUNTANSI_PERPAJAKAN",
                 "D4_AKUNTANSI_SEKTOR_PUBLIK",
                 "D4_BISNIS_INTERNASIONAL",

@@ -1,5 +1,9 @@
 .bg-image-refenitiv {
-    background-image: url("/static/perpusfebunpad-img.jpeg");
+    background-color: black;
+    background: linear-gradient(white, black), url("/static/perpusfebunpad-img.jpeg") no-repeat left top;
+
+    /* background-image: url("/static/perpusfebunpad-img.jpeg"); */
+    background-blend-mode: multiply;
     background-position: center;
     background-size: cover;
 }

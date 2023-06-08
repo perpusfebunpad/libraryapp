@@ -17,11 +17,16 @@ class Schedule extends Model
         return $this->belongsTo(User::class, "user_id");
     }
 
+    public static function nearests() {
+        $closed_schedules = static::all();
+        return $closed_schedules->filter(fn($schedule) => !$schedule->expired());
+    }
+
     public static function get_user_valid_schedules(int $user_id) {
         return static::where("user_id", $user_id)
             ->orderBy("start", "desc")
             ->get()
-            ->filter(fn($schedule) => !$schedule->invalid());
+            ->filter(fn($schedule) => !($schedule->invalid()));
     }
 
     public function available() {
@@ -48,12 +53,14 @@ class Schedule extends Model
         return false;
     }
 
+    public function in_range(int $start, int $end) {
+        return $start < strtotime($this->start) && strtotime($this->end) < $end;
+    }
+
     public function invalid() {
-        if($this->expired())
-            return true;
-        if(strtotime("previous Sunday") > strtotime($this->start))
-            return true;
-        if($this->closed())
+        $prev_week = strtotime("previous Sunday"); 
+        $next_week = strtotime("next Sunday");
+        if(($this->expired() && !$this->in_range($prev_week, $next_week)) || $this->closed())
             return true;
         return false;
     }

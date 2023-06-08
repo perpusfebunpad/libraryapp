@@ -7,10 +7,12 @@
 @section("body")
 @include("_utils.navbar")
 <div class="mt-6 relative overflow-x-auto px-6">
-    <h1 class="text-5xl mr-5 mb-5">Semua Pengguna</h1>
-    <a href="/_/users/create" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-        New
-    </a>
+    <div class="flex items-center md:justify-between">
+        <h1 class="text-5xl mr-5 mb-5">Semua Pengguna</h1>
+        <a href="/_/users/create" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+            New
+        </a>
+    </div>
     <div class="px-5 mt-6">
         @if(session()->has("error"))
         <div class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\CloseSchedule;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class CloseScheduleController extends Controller
@@ -17,6 +18,7 @@ class CloseScheduleController extends Controller
     {
         return view("admin.close-schedules.index", [
             "closed_schedules" => CloseSchedule::all(),
+            "nearest_schedule" => Schedule::nearests(),
         ]);
     }
 
@@ -57,27 +59,34 @@ class CloseScheduleController extends Controller
         return redirect("/_/close-schedules")->with("success", "Successfully creating a new close schedules");
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CloseSchedule  $closeSchedule
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CloseSchedule $closeSchedule)
+    public function edit(CloseSchedule $cs)
     {
-        //
+        return view("admin.close-schedules.edit", [
+            "close_schedule" => $cs,
+            "old_start" => strtotime($cs->start),
+            "old_end" => strtotime($cs->end),
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CloseSchedule  $closeSchedule
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, CloseSchedule $closeSchedule)
+    public function update(Request $request, CloseSchedule $cs)
     {
-        //
+        $data = $request->validate([
+            "start_date" => "required|date",
+            "start_time" => "required|date_format:H:i",
+            "end_date" => "required|date",
+            "end_time" => "required|date_format:H:i",
+            "close_reason" => "required",
+        ]);
+
+        $start = $data["start_date"] . " " . $data["start_time"] . ":" . date("i", strtotime($data["start_time"]));
+        $end = $data["end_date"] . " " . $data["end_time"] . ":" . date("i", strtotime($data["end_time"]));
+        CloseSchedule::where("id", $cs->id)->update([ 
+            "start" => $start, 
+            "end" => $end, 
+            "reason" => $data["close_reason"], 
+        ]);
+
+        return redirect("/_/close-schedules")->with("success", "Successfully updating a new close schedules");
     }
 
     /**
