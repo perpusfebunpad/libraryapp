@@ -8,7 +8,7 @@
 
 @section("body")
 @include("_utils.navbar", [ "sticky_navbar" => true ])
-<section class="h-full flex items-center bg-image-refenitiv bg-gray-400 bg-blend-multiply">
+<section class="h-full flex items-center bg-image-refenitiv bg-gray-400 bg-blend-multiply bg-gradient-to-b from-yellow-400 to-black">
     <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
         <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-unpad-light md:text-5xl lg:text-6xl dark:text-white">Refiniv Perpustakaan FEB UNPAD</h1>
         <p class="mb-8 text-lg font-normal text-unpad-light lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">Aplikasi berbasis web untuk melakukan booking jadwal penggunaan akses ke database refinitiv milik perpustakaan Fakultas Ekonomi Bisnis Universitas Padjajaran</p>

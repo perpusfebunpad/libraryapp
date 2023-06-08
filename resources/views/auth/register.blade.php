@@ -40,7 +40,9 @@
             </div>
             <div class="mb-6">
                 <label for="departement" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Study Program</label>
+                <input type="hidden" name="departement" value="NONE">
                 <select name="departement" id="departement" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="NONE" id="no-departement">N/A</option>
                     <option value="D4_AKUNTANSI_PERPAJAKAN">D4 - Akuntansi Perpajakan</option>
                     <option value="D4_AKUNTANSI_SEKTOR_PUBLIK">D4 - Akuntansi Sektor Publik</option>
                     <option value="D4_BISNIS_INTERNASIONAL">D4 - Bisnis Internasional</option>
@@ -62,7 +64,7 @@
                     <option value="S3_EKONOMI">S3 - Ekonomi</option>
                     <option value="S3_MANAJEMEN">S3 - Manajemen</option>
                     <option value="S3_AKUNTANSI">S3 - Akuntansi</option>
-                </select>   
+                </select>
                 @error("departement")
                     <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
@@ -106,19 +108,49 @@
 
 <script>
     const statusInput = document.getElementById("status");
+    const departementInput = document.getElementById("departement");
     const statusValueMahasiswa = document.getElementById("status_mahasiswa");
+    const departementNone = document.getElementById("no-departement");
     const statusValueDosen = document.getElementById("status_dosen");
     const statusValueTenagaDidik = document.getElementById("status_tenaga_didik");
     const npmInput = document.getElementById("npm");
+
+    window.onload = () => {
+        if(npmInput.value.length === 18) {
+            statusInput.disabled = false;
+            statusValueDosen.selected = true;
+            statusValueMahasiswa.hidden = true;
+
+            departementInput.disabled = true;
+            departementNone.selected = true;
+            departementNone.hidden = false;
+        } else {    
+            statusValueMahasiswa.hidden = false;
+            statusInput.disabled = true;
+            statusValueMahasiswa.selected = true;
+
+            departementInput.disabled = false;
+            departementNone.selected = false;
+            departementNone.hidden = true;
+        }
+    }
+
     npmInput.addEventListener("input", ev => {
         if(npmInput.value.length === 18) {
             statusInput.disabled = false;
             statusValueDosen.selected = true;
             statusValueMahasiswa.hidden = true;
-        } else {
+
+            departementInput.disabled = true;
+            departementNone.selected = true;
+        } else {    
             statusValueMahasiswa.hidden = false;
             statusInput.disabled = true;
             statusValueMahasiswa.selected = true;
+
+            departementInput.disabled = false;
+            departementNone.selected = false;
+            departementNone.hidden = true;
         }
     })
 </script>
