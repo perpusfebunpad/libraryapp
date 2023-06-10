@@ -15,9 +15,11 @@ class ScheduleController extends Controller
     public function index() {
         $user = auth()->user();
         $schedules = Schedule::where("user_id", auth()->user()->id)->orderBy("start", "desc")->get()->filter(fn($schedule) => !$schedule->expired());
-        $latest_schedule = null;
-        if($schedules->count() > 0 && !$schedules->first()->expired()) {
-            $latest_schedule = $schedules->first();
+        $latest_schedule = $schedules->first();
+        if($latest_schedule && !$latest_schedule->expired() && !$latest_schedule->closed()) {
+
+        } else {
+            $latest_schedule = null;
         }
         return view("schedule", [
             "user_schedules" => $schedules,

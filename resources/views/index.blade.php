@@ -10,7 +10,7 @@
 @include("_utils.navbar", [ "sticky_navbar" => true ])
 <section class="h-full flex items-center bg-image-refenitiv bg-gray-400 bg-blend-multiply bg-gradient-to-b from-yellow-400 to-black">
     <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
-        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-unpad-light md:text-5xl lg:text-6xl dark:text-white">Refiniv Perpustakaan FEB UNPAD</h1>
+        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-unpad-light md:text-5xl lg:text-6xl dark:text-white">Refinitiv Perpustakaan FEB UNPAD</h1>
         <p class="mb-8 text-lg font-normal text-unpad-light lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">Aplikasi berbasis web untuk melakukan booking jadwal penggunaan akses ke database refinitiv milik perpustakaan Fakultas Ekonomi Bisnis Universitas Padjajaran</p>
         <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
             <a href="/schedule" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-unpad-yellow hover:bg-unpad-light hover:text-black focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
