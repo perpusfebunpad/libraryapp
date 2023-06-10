@@ -120,7 +120,7 @@ class ScheduleController extends Controller
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Write(5, "Nama : $user->name");
         $pdf->Ln(7);
-        $pdf->Write(5, "NPM : $user->npm");
+        $pdf->Write(5, "NPM/NIP : $user->npm");
         $pdf->Ln(7);
         $pdf->Write(5, "Mulai : $schedule->start");
         $pdf->Ln(7);
