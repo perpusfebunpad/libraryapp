@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -48,6 +49,7 @@ class UserController extends Controller
             "status" => "required",
             "role" => "required",
         ]);
+        $validData["password"] = Hash::make($validData["password"]);
         $newUser =  User::create($validData);
         return redirect("/_/users")->with("success", "Successfully create a new user");
     }
@@ -89,7 +91,14 @@ class UserController extends Controller
             "departement" => "required", 
             "status" => "required",
             "role" => "required",
+            "password" => "nullable|min:8|confirmed"
         ]);
+
+        if($validData["password"] == null) {
+            unset($validData["password"]);
+        } else {
+            $validData["password"] = Hash::make($validData["password"]);
+        }
 
         User::where("id", $user->id)->update($validData);
         return redirect("/_/users")->with("success", "Successfully update an user");
