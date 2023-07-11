@@ -9,9 +9,14 @@
 <div class="mt-6 relative overflow-x-auto px-6">
     <div class="flex items-center md:justify-between">
         <h1 class="text-5xl mr-5 mb-5">Semua Jadwal Tutup</h1>
-        <a href="/_/close-schedules/create" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-            New
-        </a>
+        <div>
+            <a href="/_/close-schedules/create" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                New
+            </a>
+            <a href="/_/close-schedules/export" type="button" class="text-white bg-yellow-700 hover:bg-yellow-800 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
+                Export
+            </a>
+        </div>
     </div>
     <div class="px-5 mt-6">
         @if(session()->has("error"))

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class UserController extends Controller
 {
@@ -19,6 +21,42 @@ class UserController extends Controller
         return view("admin.users.index", [
             "users" => User::all(),
         ]);
+    }
+
+    public function export() {
+        $users = User::all();
+        $spreadsheet = new Spreadsheet();
+        $asheet = $spreadsheet->getActiveSheet();
+        $asheet->setCellValue("A1", "id");
+        $asheet->setCellValue("B1", 'name');
+        $asheet->setCellValue("C1", 'npm');
+        $asheet->setCellValue("D1", 'email');
+        $asheet->setCellValue("E1", 'password');
+        $asheet->setCellValue("F1", "status");
+        $asheet->setCellValue("G1", "departement");
+        $asheet->setCellValue("H1", "phone_number");
+        $asheet->setCellValue("I1", "role");
+
+        foreach($users as $key => $user) {
+            $key += 2;
+            $asheet->setCellValue("A".$key, $user->id);
+            $asheet->setCellValue("B".$key, $user->name);
+            $asheet->setCellValue("C".$key, $user->npm);
+            $asheet->setCellValue("D".$key, $user->email);
+            $asheet->setCellValue("E".$key, $user->password);
+            $asheet->setCellValue("F".$key, $user->status);
+            $asheet->setCellValue("G".$key, $user->departement);
+            $asheet->setCellValue("H".$key, $user->phone_number);
+            $asheet->setCellValue("I".$key, $user->role);
+        }
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="users-table_' . time() . '.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $xlsx = new Xlsx($spreadsheet);
+        ob_end_clean();
+        return $xlsx->save("php://output");
     }
 
     /**

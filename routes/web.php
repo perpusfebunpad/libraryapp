@@ -41,6 +41,7 @@ Route::prefix("/_")->middleware(["auth", "can:moderate"])->group(function(){
         Route::get("/edit/{user:npm}", "edit");
         Route::put("/edit/{user:npm}", "update");
         Route::get("/delete/{user:npm}", "destroy");
+        Route::get("/export", "export");
     });
 
     Route::prefix("/close-schedules")->controller(Admin\CloseScheduleController::class)->group(function(){
@@ -50,6 +51,7 @@ Route::prefix("/_")->middleware(["auth", "can:moderate"])->group(function(){
         Route::get("/edit/{cs}", "edit");
         Route::put("/edit/{cs}", "update");
         Route::get("/delete/{cs}", "destroy");
+        Route::get("/export", "export");
     });
 
     Route::prefix("/schedules")->controller(Admin\ScheduleController::class)->group(function(){
@@ -59,6 +61,7 @@ Route::prefix("/_")->middleware(["auth", "can:moderate"])->group(function(){
         Route::get("/edit/{schedule}", "edit");
         Route::put("/edit/{schedule}", "update");
         Route::get("/delete/{schedule}", "destroy");
+        Route::get("/export", "export");
     });
 
 });

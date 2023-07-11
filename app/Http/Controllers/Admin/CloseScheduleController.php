@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\CloseSchedule;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class CloseScheduleController extends Controller
 {
@@ -20,6 +22,34 @@ class CloseScheduleController extends Controller
             "closed_schedules" => CloseSchedule::all(),
             "nearest_schedule" => Schedule::nearests(),
         ]);
+    }
+
+    public function export()
+    {
+        $close_schedules = CloseSchedule::all();
+        $spreadsheet = new Spreadsheet();
+        $asheet = $spreadsheet->getActiveSheet();
+        $asheet->setCellValue("A1", "id");
+        $asheet->setCellValue("B1", "start");
+        $asheet->setCellValue("C1", 'end');
+        $asheet->setCellValue("D1", 'reason');
+
+        foreach($close_schedules as $key => $close_schedule) {
+            $key += 2;
+            $asheet->setCellValue("A".$key, $close_schedule->id);
+            $asheet->setCellValue("B".$key, $close_schedule->start);
+            $asheet->setCellValue("C".$key, $close_schedule->end);
+            $asheet->setCellValue("D".$key, $close_schedule->reason);
+        }
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="close-schedules-table_' . time() . '.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $xlsx = new Xlsx($spreadsheet);
+        ob_end_clean();
+        return $xlsx->save("php://output");
+
     }
 
     /**
