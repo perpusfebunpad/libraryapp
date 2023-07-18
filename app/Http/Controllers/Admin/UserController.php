@@ -50,13 +50,13 @@ class UserController extends Controller
             $asheet->setCellValue("I".$key, $user->role);
         }
 
+        ob_clean();
+        $xlsx = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="users-table_' . time() . '.xlsx"');
         header('Cache-Control: max-age=0');
-
-        $xlsx = new Xlsx($spreadsheet);
         ob_end_clean();
-        return $xlsx->save("php://output");
+        $xlsx->save("php://output");
     }
 
     /**

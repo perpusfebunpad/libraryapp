@@ -41,12 +41,11 @@ class CloseScheduleController extends Controller
             $asheet->setCellValue("C".$key, $close_schedule->end);
             $asheet->setCellValue("D".$key, $close_schedule->reason);
         }
-
+        ob_clean();
+        $xlsx = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="close-schedules-table_' . time() . '.xlsx"');
         header('Cache-Control: max-age=0');
-
-        $xlsx = new Xlsx($spreadsheet);
         ob_end_clean();
         return $xlsx->save("php://output");
 
