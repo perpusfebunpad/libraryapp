@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 
-class BaseController extends Controller
+class DashboardController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return view("admin.index");
     }
-    
-    public function verify_schedule(Request $request) {
+
+    public function verifySchedule(Request $request)
+    {
         $data = $request->validate([
             "verification_code" => "required",
         ]);
