@@ -10,7 +10,7 @@
     <div class="border-b border-black pb-5 mb-5">
         <h1 class="text-5xl">Create an User</h1>
     </div>
-    <form action="/_/users" method="post">
+    <form action="{{ route('users.store') }}" method="post">
         @csrf
         <div class="mb-6">
             <label for="npm" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NPM/NIP</label>

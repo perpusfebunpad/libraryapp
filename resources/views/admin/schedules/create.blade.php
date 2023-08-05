@@ -10,7 +10,7 @@
     @include("_utils.navbar")
     <div class="w-full justify-center flex">
         <div class="w-full mt-10 max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-            <form class="space-y-3" action="/schedule" method="post">
+            <form class="space-y-3" action="{{ route('schedules.store') }}" method="post">
                 @csrf
                 <h5 class="text-xl font-medium text-gray-900 dark:text-white">Tambahkan Jadwal</h5>
                 @if(session()->has("error"))

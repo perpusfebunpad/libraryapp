@@ -10,7 +10,7 @@
     <div class="border-b border-black pb-5 mb-5">
         <h1 class="text-5xl">Edit User</h1>
     </div>
-    <form action="/_/users/edit/{{$user->npm}}" method="post">
+    <form action="{{ route('users.update', $user->npm) }}" method="post">
         @csrf
         @method("put")
         <div class="mb-6">

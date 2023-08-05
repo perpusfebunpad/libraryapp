@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -31,11 +32,10 @@ class UserController extends Controller
         $asheet->setCellValue("B1", 'name');
         $asheet->setCellValue("C1", 'npm');
         $asheet->setCellValue("D1", 'email');
-        $asheet->setCellValue("E1", 'password');
-        $asheet->setCellValue("F1", "status");
-        $asheet->setCellValue("G1", "departement");
-        $asheet->setCellValue("H1", "phone_number");
-        $asheet->setCellValue("I1", "role");
+        $asheet->setCellValue("E1", "status");
+        $asheet->setCellValue("F1", "departement");
+        $asheet->setCellValue("G1", "phone_number");
+        $asheet->setCellValue("H1", "role");
 
         foreach($users as $key => $user) {
             $key += 2;
@@ -43,20 +43,16 @@ class UserController extends Controller
             $asheet->setCellValue("B".$key, $user->name);
             $asheet->setCellValue("C".$key, $user->npm);
             $asheet->setCellValue("D".$key, $user->email);
-            $asheet->setCellValue("E".$key, $user->password);
-            $asheet->setCellValue("F".$key, $user->status);
-            $asheet->setCellValue("G".$key, $user->departement);
-            $asheet->setCellValue("H".$key, $user->phone_number);
-            $asheet->setCellValue("I".$key, $user->role);
+            $asheet->setCellValue("E".$key, $user->status);
+            $asheet->setCellValue("F".$key, $user->departement);
+            $asheet->setCellValue("G".$key, $user->phone_number);
+            $asheet->setCellValue("H".$key, $user->role);
         }
 
-        ob_clean();
         $xlsx = new Xlsx($spreadsheet);
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="users-table_' . time() . '.xlsx"');
-        header('Cache-Control: max-age=0');
-        ob_end_clean();
-        $xlsx->save("php://output");
+        $filename =  Storage::path("users-table");
+        $xlsx->save($filename);
+        return response()->download($filename)->deleteFileAfterSend();
     }
 
     /**

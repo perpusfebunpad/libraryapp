@@ -39,6 +39,11 @@ class User extends Authenticatable
         return $this->hasMany(Schedule::class);
     }
 
+    public function getRouteKeyName()
+    {
+        return "npm";
+    }
+
     // public function valid_schedules() {
     //     return $this->schedules->filter(function($schedule){
     //         return !$schedule->invalid();

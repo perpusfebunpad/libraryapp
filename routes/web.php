@@ -53,16 +53,11 @@ Route::prefix("/_")->middleware(["auth", "can:moderate"])->group(function(){
     Route::get("/", [Admin\DashboardController::class, "index"]);
     Route::post("/verify-schedule", [Admin\DashboardController::class, "verifySchedule"]);
 
-    Route::prefix("/users")->controller(Admin\UserController::class)->group(function(){
-        Route::get("/", "index");
-        Route::get("/create", "create");
-        Route::post("/", "store");
-        Route::get("/detail/{user:npm}", "show");
-        Route::get("/edit/{user:npm}", "edit");
-        Route::put("/edit/{user:npm}", "update");
-        Route::get("/delete/{user:npm}", "destroy");
-        Route::get("/export", "export");
-    });
+    Route::get("/users/export", [Admin\UserController::class, "export"])->name("users.export");
+    Route::resource("/users", Admin\UserController::class);
+
+    Route::get("/schedules/export", [Admin\ScheduleController::class, "export"])->name("schedules.export");
+    Route::resource("/schedules", Admin\ScheduleController::class);
 
     Route::prefix("/close-schedules")->controller(Admin\CloseScheduleController::class)->group(function(){
         Route::get("/", "index");
@@ -71,16 +66,6 @@ Route::prefix("/_")->middleware(["auth", "can:moderate"])->group(function(){
         Route::get("/edit/{cs}", "edit");
         Route::put("/edit/{cs}", "update");
         Route::get("/delete/{cs}", "destroy");
-        Route::get("/export", "export");
-    });
-
-    Route::prefix("/schedules")->controller(Admin\ScheduleController::class)->group(function(){
-        Route::get("/", "index");
-        Route::get("/create", "create");
-        Route::post("/", "store");
-        Route::get("/edit/{schedule}", "edit");
-        Route::put("/edit/{schedule}", "update");
-        Route::get("/delete/{schedule}", "destroy");
         Route::get("/export", "export");
     });
 

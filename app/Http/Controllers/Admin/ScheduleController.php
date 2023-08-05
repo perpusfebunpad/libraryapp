@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -41,13 +42,10 @@ class ScheduleController extends Controller
             $asheet->setCellValue("F".$key, $schedule->verification_code);
         }
 
-        ob_clean();
         $xlsx = new Xlsx($spreadsheet);
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="schedules-table_' . time() . '.xlsx"');
-        header('Cache-Control: max-age=0');
-        ob_end_clean();
-        $xlsx->save("php://output");
+        $filename =  Storage::path("schedules-table");
+        $xlsx->save($filename);
+        return response()->download($filename)->deleteFileAfterSend();
     }
 
     public function create()
