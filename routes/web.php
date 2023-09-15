@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
@@ -24,6 +25,10 @@ use Illuminate\Support\Facades\Route;
 Route::get("/", [ HomeController::class, "index" ]);
 Route::get("/closing-schedules", [ HomeController::class, "close_schedules" ]);
 Route::redirect("/home", "/");
+
+Route::prefix("/dashboard")->controller(Dashboard\DashboardController::class)->middleware("auth")->group(function(){
+    Route::get("/", "index")->name("dashboard.index");
+});
 
 Route::prefix("/auth")->middleware("guest")->group(function(){
     Route::get("/login", [LoginController::class, "login"])->name("login");
@@ -50,8 +55,8 @@ Route::prefix("/schedule")->middleware("auth")->controller(ScheduleController::c
 });
 
 Route::prefix("/_")->middleware(["auth", "can:moderate"])->group(function(){
-    Route::get("/", [Admin\DashboardController::class, "index"]);
-    Route::post("/verify-schedule", [Admin\DashboardController::class, "verifySchedule"]);
+    Route::get("/", [Admin\AdminController::class, "index"]);
+    Route::post("/verify-schedule", [Admin\AdminController::class, "verifySchedule"]);
 
     Route::get("/users/export", [Admin\UserController::class, "export"])->name("users.export");
     Route::resource("/users", Admin\UserController::class);
