@@ -11,8 +11,8 @@
     @yield("head")
 </head>
 <body>
-    @include("dashboard._components.navbar")
-    @include("dashboard._components.sidebar")
+    @include("dashboard._utils.navbar")
+    @include("dashboard._utils.sidebar")
 
     <div class="p-4 sm:ml-64">
         <div class="p-4 mt-14">
