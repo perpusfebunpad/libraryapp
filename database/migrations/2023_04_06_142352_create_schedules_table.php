@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained("users")->cascadeOnDelete();
+            $table->boolean("active")->default(true);
             $table->dateTime("start");
             $table->dateTime("end");
             $table->string("friend_name")->nullable();

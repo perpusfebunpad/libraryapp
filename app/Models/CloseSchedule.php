@@ -30,7 +30,7 @@ class CloseSchedule extends Model
         return $closed_schedules->count() > 0 ? $closed_schedules->first() : null;
     }
 
-    public function clash_with(string $start, string $end) {
-        return $start >= $this->start && $end <= $this->end;
+    public function clash_with(int $start, int $end) {
+        return $start >= strtotime($this->start) && $end <= strtotime($this->end);
     }
 }

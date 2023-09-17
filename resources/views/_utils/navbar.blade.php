@@ -37,13 +37,7 @@
             </li>
             @auth
             <li>
-                <a href="/schedule" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <img src="/static/icons/clock.svg" alt="clock Icon">
-                    <span class=" break-words overflow-x-hidden flex-1 ml-3 whitespace-nowrap">Schedule</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('profile.index') }}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="{{ route('dashboard.profile.index') }}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <img src="/static/icons/user.svg" alt="user Icon">
                     <span class=" break-words overflow-x-hidden flex-1 ml-3 whitespace-nowrap">{{ auth()->user()->name }}</span>
                 </a>
@@ -58,16 +52,16 @@
                 </button>
                 <ul id="dropdown-example" class="hidden py-2 space-y-2">
                     <li>
-                        <a href="/_" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Dashboard</a>
-                    </li>                    
-                    <li>
-                        <a href="/_/schedules" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Schedules</a>
+                        <a href="{{ route('admin.index') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Home</a>
                     </li>
                     <li>
-                        <a href="/_/users" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Users</a>
+                        <a href="{{ route('schedules.index') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Schedules</a>
                     </li>
                     <li>
-                        <a href="/_/close-schedules" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Close Schedules</a>
+                        <a href="{{ route('users.index') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Users</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('close-schedules.index') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Close Schedules</a>
                     </li>
                 </ul>
             </li>

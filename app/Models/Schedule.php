@@ -18,8 +18,8 @@ class Schedule extends Model
     }
 
     public static function nearests() {
-        $closed_schedules = static::all();
-        return $closed_schedules->filter(fn($schedule) => !$schedule->expired());
+        $schedules = static::all();
+        return $schedules->filter(fn($schedule) => !$schedule->expired());
     }
 
     public static function get_user_valid_schedules(int $user_id) {
