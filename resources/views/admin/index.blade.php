@@ -91,7 +91,7 @@
                 </div>
                 <div class="flex flex-col py-3">
                     <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Jumlah Jadwal Terdaftar</dt>
-                    <dd class="text-lg font-semibold">{{ count(\App\Models\Schedule::all()); }}</dd>
+                    <dd class="text-lg font-semibold">{{ count(\App\Models\Schedule::all()) }}</dd>
                 </div>
             </dl>
         </div>

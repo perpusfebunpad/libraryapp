@@ -21,7 +21,7 @@ class CloseScheduleController extends Controller
 
         return view("admin.close-schedules.index", [
             "closed_schedules" => $closing_schedules,
-    
+
             "total_pages" => $last_page,
             "current_page" => $current_page,
             "first_link" => $current_page > 3 ? $current_page - 2 : 1,
