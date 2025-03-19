@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
             "name" => "Bagas Jonathan Sitanggang",
             "email" => "bagassitanggang83@gmail.com",
             "phone_number" => "081383028969",
-            "departement" => "S1_AKUNTANSI", 
-            "password" => Hash::make("sekteikkoikko76"),
+            "departement" => "S1_AKUNTANSI",
+            "password" => Hash::make("admin123"),
             "status" => "MAHASISWA",
             "role" => "admin",
         ]);

@@ -74,7 +74,7 @@ class ScheduleController extends Controller
         if($now > strtotime($end)) {
             return back()->with("error", "Tidak bisa mendaftarkan jadwal di hari yang sudah lewat");
         }
-        
+
         // Check if there's close schedule
         foreach(CloseSchedule::nearests() as $nearest_close_schedule) {
             if($nearest_close_schedule != null && $nearest_close_schedule->clash_with($start, $end)) {

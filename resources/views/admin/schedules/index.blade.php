@@ -76,6 +76,8 @@
                 <td class="px-6 py-4">
                     <a href="{{ route('schedules.edit', $schedule->id) }}" type="button" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">Update</a>
                     <form action="{{ route('schedules.destroy', $schedule->id) }}" class="inline" method="post">
+                        @csrf
+                        @method("delete")
                         <button type="submit" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onclick="return confirm('Are you sure?')">Delete</button>
                     </form>
                 </td>

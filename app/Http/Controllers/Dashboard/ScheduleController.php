@@ -22,11 +22,11 @@ class ScheduleController extends Controller
     public function store(Request $request)
     {
         $DATE_FORMAT = "Y-m-d H:i:s";
-        $MAXIMUM_SCHEDULE_PER_USER = 3;
 
         $rules = [
             "session" => "required",
             "date" => "required|date",
+            "location" => "required",
         ];
 
         if($request->has("with_friend")) {
@@ -42,7 +42,7 @@ class ScheduleController extends Controller
         $next_week = strtotime("next Sunday");
         $start = strtotime($data["date"] . " " . $data["session"]);
         $end = $start + 60*60;
-        
+
         if($now > $end) {
             return back()->with("error", "Tidak dapat mendaftarkan jadwal di waktu yang sudah lewat");
         }
@@ -56,7 +56,7 @@ class ScheduleController extends Controller
             return back()->with("error", "Tidak bisa mendaftarkan jadwal di hari Sabtu dan Minggu karena perpustakaan tutup");
         }
 
-        if(Schedule::where("start", date($DATE_FORMAT, $start))->get()->count() > 0) {
+        if(Schedule::where("start", date($DATE_FORMAT, $start))->where("location", $data["location"])->exists()) {
             return back()->with("error", "Jadwal sudah diklaim");
         }
 
@@ -66,9 +66,11 @@ class ScheduleController extends Controller
             }
         }
 
+        // Ini merupakan logic untuk pembatasan jumlah jadwal per-orang
+        $MAXIMUM_SCHEDULE_PER_USER = 3;
         $in_this_week_schedules = Schedule::where("user_id", $user->id)->orderBy("start", "desc")->get()->filter(fn($schedule) => $schedule->in_range($prev_week, $next_week));
-        if(!(count($in_this_week_schedules) < $MAXIMUM_SCHEDULE_PER_USER) 
-            && $prev_week < $start && $end < $next_week) 
+        if(!(count($in_this_week_schedules) <= $MAXIMUM_SCHEDULE_PER_USER)
+            && $prev_week < $start && $end < $next_week)
         {
             return back()->with("error", "Pembuatan jadwal hanya diperbolehkan maximum $MAXIMUM_SCHEDULE_PER_USER setiap minggunya");
         }

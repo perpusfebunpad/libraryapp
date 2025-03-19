@@ -61,6 +61,9 @@
                         Tanggal
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Lokasi
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Sesi
                     </th>
                 </tr>
@@ -76,6 +79,9 @@
                     </td>
                     <td class="px-6 py-4">
                         {{ date("Y-m-d", strtotime($schedule->start)) }}
+                    <td class="px-6 py-4">
+                        {{ ucfirst($schedule->location) }}
+                    </td>
                     </td>
                     <td class="px-6 py-4">
                         {{

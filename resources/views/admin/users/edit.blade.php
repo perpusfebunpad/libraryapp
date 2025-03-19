@@ -65,97 +65,97 @@
         <div class="mb-6">
             <label for="departement" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Departement</label>
             <select name="departement" id="departement" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option 
-                    @if($user->departement == "S1_AKUNTANSI") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S1_AKUNTANSI")
+                        selected
+                    @endif
                     value="S1_AKUNTANSI">S1 - Akuntansi</option>
-                <option 
-                    @if($user->departement == "S1_MANAJEMEN") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S1_MANAJEMEN")
+                        selected
+                    @endif
                     value="S1_MANAJEMEN">S1 - Manajemen</option>
-                <option 
-                    @if($user->departement == "S1_MANAJEMEN") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S1_MANAJEMEN")
+                        selected
+                    @endif
                     value="S1_MANAJEMEN">S1 - Manajemen</option>
-                <option 
-                    @if($user->departement == "S1_ILMU_EKONOMI") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S1_ILMU_EKONOMI")
+                        selected
+                    @endif
                     value="S1_ILMU_EKONOMI">S1 - Ilmu Ekonomi</option>
-                <option 
-                    @if($user->departement == "S1_BISNIS_DIGITAL") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S1_BISNIS_DIGITAL")
+                        selected
+                    @endif
                     value="S1_BISNIS_DIGITAL">S1 - Bisnis Digital</option>
-                <option 
-                    @if($user->departement == "S1_AKUNTANSI_SEKTOR_PUBLIK") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S1_AKUNTANSI_SEKTOR_PUBLIK")
+                        selected
+                    @endif
                     value="S1_AKUNTANSI_SEKTOR_PUBLIK">S1 - Akuntansi Sektor Publik</option>
-                <option 
-                    @if($user->departement == "PROFESI_AKUNTANSI") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "PROFESI_AKUNTANSI")
+                        selected
+                    @endif
                     value="PROFESI_AKUNTANSI">Profesi Akuntansi</option>
-                <option 
-                    @if($user->departement == "S2_EKONOMI") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S2_EKONOMI")
+                        selected
+                    @endif
                     value="S2_EKONOMI">S2 Ekonomi</option>
-                <option 
-                    @if($user->departement == "S2_ILMU_EKONOMI") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S2_ILMU_EKONOMI")
+                        selected
+                    @endif
                     value="S2_ILMU_EKONOMI">S2 Ilmu Ekonomi</option>
-                <option 
-                    @if($user->departement == "S2_ILMU_MANAJEMEN") 
-                        selected 
-                    @endif 
-                    value="S2_ILMU_MANAJEMEN">S2 Ilmu Manajemen</option> 
-                <option 
-                    @if($user->departement == "S2_MANAJEMEN") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S2_ILMU_MANAJEMEN")
+                        selected
+                    @endif
+                    value="S2_ILMU_MANAJEMEN">S2 Ilmu Manajemen</option>
+                <option
+                    @if($user->departement == "S2_MANAJEMEN")
+                        selected
+                    @endif
                     value="S2_MANAJEMEN">S2 Manajemen</option>
-                <option 
-                    @if($user->departement == "S2_AKUNTANSI") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S2_AKUNTANSI")
+                        selected
+                    @endif
                     value="S2_AKUNTANSI">S2 Akuntansi</option>
-                <option 
-                    @if($user->departement == "S2_EKONOMI_TERAPAN") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S2_EKONOMI_TERAPAN")
+                        selected
+                    @endif
                     value="S2_EKONOMI_TERAPAN">S2 Ekonomi Terapan</option>
-                <option 
-                    @if($user->departement == "S2_MANAJEMEN") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S2_MANAJEMEN")
+                        selected
+                    @endif
                     value="S2_MANAJEMEN">S2 Manajemen</option>
-                <option 
-                    @if($user->departement == "S2_MANAJEMEN_MIKRO_TERPADU") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S2_MANAJEMEN_MIKRO_TERPADU")
+                        selected
+                    @endif
                     value="S2_MANAJEMEN_MIKRO_TERPADU">S2 Manajemen Mikro Terpadu</option>
-                <option 
-                    @if($user->departement == "S3_EKONOMI") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S3_EKONOMI")
+                        selected
+                    @endif
                     value="S3_EKONOMI">S3 Ekonomi</option>
-                <option 
-                    @if($user->departement == "S3_MANAJEMEN") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S3_MANAJEMEN")
+                        selected
+                    @endif
                     value="S3_MANAJEMEN">S3 Manajemen</option>
-                <option 
-                    @if($user->departement == "S3_AKUNTANSI") 
-                        selected 
-                    @endif 
+                <option
+                    @if($user->departement == "S3_AKUNTANSI")
+                        selected
+                    @endif
                     value="S3_AKUNTANSI">S3 Akuntansi</option>
-            </select>   
+            </select>
             @error("departement")
                 <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
             @enderror

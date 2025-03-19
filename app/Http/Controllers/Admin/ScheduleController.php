@@ -76,6 +76,6 @@ class ScheduleController extends Controller
     public function destroy(Schedule $schedule)
     {
         Schedule::destroy($schedule->id);
-        return redirect("/_/schedules")->with("success", "Successfully deleting a schedules");
+        return redirect("schedules.index")->with("success", "Successfully deleting a schedules");
     }
 }

@@ -22,9 +22,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/", [ HomeController::class, "index" ])->middleware("guest");
-Route::redirect("/", "/dashboard")->middleware("auth");
-Route::redirect("/home", "/");
+// Route::get("/", [ HomeController::class, "index" ])->middleware("guest");
+// Route::redirect("/", "/dashboard")->middleware("auth");
+// Route::redirect("/home", "/");
+Route::get("/", [ HomeController::class, "index" ]);
 
 Route::prefix("/auth")->middleware("guest")->group(function(){
     Route::get("/login", [LoginController::class, "login"])->name("login");
@@ -60,7 +61,6 @@ Route::prefix("/admin")->middleware(["auth", "can:moderate"])->group(function(){
 
     Route::get("/schedules/export", [Admin\ScheduleController::class, "export"])->name("schedules.export");
     Route::resource("/schedules", Admin\ScheduleController::class);
-
     Route::resource("/close-schedules", Admin\CloseScheduleController::class);
 
     Route::get("/link-storage", function() {
