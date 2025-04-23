@@ -58,7 +58,7 @@ class Schedule extends Model
     }
 
     public function invalid() {
-        $prev_week = strtotime("previous Sunday"); 
+        $prev_week = strtotime("previous Sunday");
         $next_week = strtotime("next Sunday");
         if(($this->expired() && !$this->in_range($prev_week, $next_week)) || $this->closed())
             return true;

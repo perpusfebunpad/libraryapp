@@ -28,9 +28,9 @@ class DashboardController extends Controller
 
         return view("dashboard.index", [
             "user" => $user,
-            "schedules" => $schedules,
             "user_nearest_schedule" => $user_nearest_schedule,
 
+            "schedules" => $schedules,
             "total_pages" => $last_page,
             "current_page" => $current_page,
             "first_link" => $current_page > 3 ? $current_page - 2 : 1,

@@ -20,7 +20,7 @@ class CloseSchedule extends Model
 
     public static function nearests() {
         $closed_schedules = static::all();
-        return $closed_schedules->filter(fn($schedule) => !$schedule->expired());        
+        return $closed_schedules->filter(fn($schedule) => !$schedule->expired());
     }
 
     public static function nearest() {

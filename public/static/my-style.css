@@ -1,3 +1,54 @@
+/*
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            amber: {
+              50: #fffbeb,
+              100: #fef3c7,
+              200: #fde68a,
+              300: #fcd34d,
+              400: #fbbf24,
+              500: #f59e0b,
+              600: #d97706,
+              700: #b45309,
+              800: #92400e,
+              900: #78350f,
+              950: #451a03,
+            }
+          }
+        }
+      }
+    }
+ */
+
+.text-amber-800 {
+    color: #92400e;
+}
+
+.bg-amber-50 {
+    background-color: #fffbeb;
+}
+
+.bg-amber-500 {
+    background-color: #f59e0b;
+}
+
+.hover\:bg-amber-600:hover {
+  background-color: #d97706;
+}
+
+.focus\:ring-amber-500:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px #f59e0b;
+}
+
+/*********************
+ *
+ * OLD STYLE ARE BELOW
+ *
+ **/
 .bg-image-refenitiv {
     background-image: url("/static/perpusfebunpad-img.jpeg"), linear-gradient(white, black);
     background-position: center;
@@ -13,7 +64,7 @@
 }
 
 .hover\:bg-unpad-yellow:hover {
-    background-color: #f3ac05;    
+    background-color: #f3ac05;
 }
 
 .bg-unpad-light {
@@ -53,9 +104,9 @@
     text-align: center;
     /* Starting position */
     -moz-transform:translateX(-100%);
-    -webkit-transform:translateX(-100%);	
+    -webkit-transform:translateX(-100%);
     transform:translateX(-100%);
-    /* Apply animation to this element */	
+    /* Apply animation to this element */
     -moz-animation: marquee 15s linear infinite;
     -webkit-animation: marquee 15s linear infinite;
     animation: marquee 15s linear infinite;
@@ -71,14 +122,14 @@
     100% { -webkit-transform: translateX(100%); }
 }
 @keyframes marquee {
-    0%   { 
+    0%   {
         -moz-transform: translateX(-100%); /* Firefox bug fix */
         -webkit-transform: translateX(-100%); /* Firefox bug fix */
-        transform: translateX(-100%); 		
+        transform: translateX(-100%);
     }
-    100% { 
+    100% {
         -moz-transform: translateX(100%); /* Firefox bug fix */
         -webkit-transform: translateX(100%); /* Firefox bug fix */
-        transform: translateX(100%); 
+        transform: translateX(100%);
     }
 }

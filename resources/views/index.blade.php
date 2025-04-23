@@ -13,11 +13,11 @@
         <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-unpad-light md:text-5xl lg:text-6xl dark:text-white">Refinitiv Perpustakaan FEB UNPAD</h1>
         <p class="mb-8 text-lg font-normal text-unpad-light lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">Aplikasi berbasis web untuk melakukan booking jadwal penggunaan akses ke database refinitiv milik perpustakaan Fakultas Ekonomi Bisnis Universitas Padjajaran</p>
         <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-            <a href="/dashboard/schedule" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-unpad-yellow hover:bg-unpad-light hover:text-black focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+            <a href="{{ route('user.schedules.index') }}" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-unpad-yellow hover:bg-unpad-light hover:text-black focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                 Dapatkan Jadwal
                 <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
             </a>
-            <a href="/dashboard/closing-schedules" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+            <a href="{{ route('user.schedules.closing') }}" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
                 Jadwal Tutup
             </a>
         </div>

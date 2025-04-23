@@ -1,24 +1,27 @@
-<nav class="@if(isset($sticky_navbar) && $sticky_navbar) fixed w-full bg-unpad-yellow left-0 top-0 z-49 @endif">
-    <div id="real-navbar" class="sm:px-2 md:px-10 py-1 w-full flex justify-between items-center rounded-b
-    @if(isset($sticky_navbar) && $sticky_navbar)
-    text-white absolute top-0
-    @else
-    bg-unpad-yellow text-unpad-light shadow shadow-lg
-    @endif">
-        <div class="flex items-center">
-            <a href="https://www.unpad.ac.id/">
-                <img src="/static/logo-unpad.png" class="h-12" alt="Logo UNPAD">
-            </a>
-            <span class=" break-words overflow-x-hidden ml-2 mr-4">|</span>
-            <a class="font-bold"href="/">Perpustakaan FEB UNPAD</a>
+<header class="bg-amber-500 text-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="bg-white p-2 rounded-full">
+                <!-- Book Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+            </div>
+            <h1 class="text-xl font-semibold">Perpustakaan FEB UNPAD</h1>
         </div>
-        <div class="text-center">
+        <div class="text-white hover:bg-amber-600 p-2 rounded-md">
+            <!-- Menu Icon -->
             <button type="button" data-drawer-target="drawer-right-example" data-drawer-show="drawer-right-example" data-drawer-placement="right" aria-controls="drawer-right-example">
-                <img src="/static/icons-light/menu.svg" alt="Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu">
+                    <line x1="4" x2="20" y1="12" y2="12" />
+                    <line x1="4" x2="20" y1="6" y2="6" />
+                    <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
             </button>
         </div>
     </div>
-</nav>
+</header>
 
 <div id="drawer-right-example" class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-right-label">
     <br class="mb-4"/>
@@ -104,19 +107,3 @@
         </ul>
     </div>
 </div>
-
-@if(isset($sticky_navbar) && $sticky_navbar)
-<script>
-    window.onload = (event) => {
-        scrollTo(0, 0);
-    }
-    const realNavbar = document.getElementById('real-navbar');
-    addEventListener("scroll", ev => {
-        if(scrollY !== 0) {
-            realNavbar.classList.add('bg-unpad-yellow')
-        } else {
-            realNavbar.classList.remove('bg-unpad-yellow')
-        }
-    })
-</script>
-@endif

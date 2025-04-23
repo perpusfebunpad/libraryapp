@@ -22,10 +22,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get("/", [ HomeController::class, "index" ])->middleware("guest");
-// Route::redirect("/", "/dashboard")->middleware("auth");
-// Route::redirect("/home", "/");
 Route::get("/", [ HomeController::class, "index" ]);
+Route::redirect("/home", "/");
+
+Route::prefix("/schedule")->middleware("auth")->controller(ScheduleController::class)->group(function(){
+    Route::get("/", "index")->name("user.schedules.index");
+    Route::get("/closing", "closing")->name("user.schedules.closing");
+    Route::get("/create", "create")->name("user.schedules.create");
+    Route::post("/", "store");
+    Route::get("/proof", "proof");
+    Route::get("/get-email", "get_email");
+});
+
+Route::prefix("/profile")->middleware("auth")->group(function(){
+    Route::get("/", [ ProfileController::class, "index" ])->name("profile.index");
+    Route::get("/edit", [ ProfileController::class, "edit" ])->name("profile.edit");
+    Route::put("/", [ ProfileController::class, "update" ])->name("profile.update");
+    Route::get("/change-password", [ ChangePasswordController::class, "edit" ])->name("password.edit");
+    Route::put("/change-password", [ ChangePasswordController::class, "update" ])->name("password.update");
+});
 
 Route::prefix("/auth")->middleware("guest")->group(function(){
     Route::get("/login", [LoginController::class, "login"])->name("login");
@@ -33,24 +48,7 @@ Route::prefix("/auth")->middleware("guest")->group(function(){
     Route::get("/register", [RegisterController::class, "register"])->name("register");
     Route::post("/register", [RegisterController::class, "store"]);
 });
-
 Route::get("/auth/logout", [LoginController::class, "logout"])->middleware("auth")->name('logout');
-
-Route::prefix("/dashboard")->middleware("auth")->group(function(){
-    Route::get("/", [ Dashboard\DashboardController::class, "index"])->name("dashboard.index");
-    Route::get("/closing-schedules", [Dashboard\DashboardController::class, "closing_schedules"])->name("dashboard.closing_schedules");
-
-    Route::prefix("/schedule")->controller(Dashboard\ScheduleController::class)->group(function(){
-        Route::get("/", "create")->name("dashboard.schedules.create");
-        Route::post("/", "store")->name("dashboard.schedules.store");
-    });
-
-    Route::prefix("/profile")->controller(Dashboard\ProfileController::class)->group(function(){
-        Route::get("/", "index")->name("dashboard.profile.index");
-        Route::get("/edit", "edit")->name("dashboard.profile.edit");
-        Route::put("/", "update")->name("dashboard.profile.update");
-    });
-});
 
 Route::prefix("/admin")->middleware(["auth", "can:moderate"])->group(function(){
     Route::get("/", [Admin\AdminController::class, "index"])->name("admin.index");

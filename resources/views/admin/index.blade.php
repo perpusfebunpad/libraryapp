@@ -6,7 +6,7 @@
 @endsection
 
 @section("body")
-@include("_utils.navbar")
+@include("_utils.navbar2")
 <div class="mt-5 p-10 bg-gray-50 w-full">
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
