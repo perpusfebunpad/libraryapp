@@ -5,7 +5,7 @@
 @endsection
 
 @section("body")
-@include("_utils.navbar")
+@include("_utils.navbar2")
 <div class="mt-6 px-6 pb-6">
     <div class="border-b border-black pb-5 mb-5">
         <h1 class="text-5xl">Edit User</h1>

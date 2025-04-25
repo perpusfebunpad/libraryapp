@@ -10,17 +10,17 @@
     <main class="flex-1 overflow-auto p-6">
         <div class="flex items-center justify-between mb-6">
             <div>
-                <h1 class="text-2xl font-bold text-gray-900">Schedule Management</h1>
-                <p class="mt-1 text-sm text-gray-500">Manage all reserved schedules of the library system</p>
+                <h1 class="text-2xl font-bold text-gray-900">Closing Schedule Management</h1>
+                <p class="mt-1 text-sm text-gray-500">Manage all closing schedule of the library system</p>
             </div>
             <div class="flex space-x-3">
-                <a href="{{ route('schedules.create') }}" class="px-4 py-2 bg-amber-500 text-white rounded-md hover:bg-amber-600 flex items-center">
+                <a href="{{ route('closing.create') }}" class="px-4 py-2 bg-amber-500 text-white rounded-md hover:bg-amber-600 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
                     New Schedule
                 </a>
-                <a href="{{ route('schedules.export') }}" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 flex items-center">
+                <a href="{{ route('closing.export') }}" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                     </svg>
@@ -34,7 +34,7 @@
             <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
             <span class="sr-only">Info</span>
             <div>
-                <span class="font-medium">Error</span> {{ session("error")}}
+                <span class="font-medium">Error</span> {{ session("error") }}
             </div>
         </div>
         @endif
@@ -48,7 +48,6 @@
         </div>
         @endif
 
-
         <div class="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
@@ -58,13 +57,13 @@
                                 ID
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Sesi
+                                Waktu
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Pemilik
+                                Alasan
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Teman
+                                Jadwal Yang Bertabrakan
                             </th>
                             <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Actions
@@ -73,7 +72,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         <!-- User Row 1 -->
-                        @foreach($schedules as $schedule)
+                        @foreach($closed_schedules as $schedule)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="ml-3 text-sm text-gray-900"> {{ $loop->iteration }} </span>
@@ -82,15 +81,25 @@
                                 {{ $schedule->start }} - {{ $schedule->end }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $schedule->owner->name }}
+                                {{ $schedule->reason }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                {{ $schedule->friend_name }} - {{ $schedule->friend_npm }}
+                                @foreach(\App\Models\Schedule::nearests() as $ns)
+                                @if($ns->in_range(strtotime($schedule->start), strtotime($schedule->end)))
+                                <li>
+                                    {{ $ns->owner->name }} - {{ $ns->owner->npm }}
+                                </li>
+                                @endif
+                                @endforeach
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end space-x-2">
-
-                                    <form action="{{ route('schedules.destroy', $schedule->id) }}" class="inline" method="post">
+                                    <a href="{{ route('closing.edit', $schedule->id) }}" class="text-blue-600 hover:text-blue-900 p-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>
+                                    </a>
+                                    <form action="{{ route('closing.destroy', $schedule->id) }}" class="inline" method="post">
                                         @csrf
                                         @method("delete")
                                         <button type="submit" class="text-red-600 hover:text-red-900 p-1">
@@ -120,7 +129,7 @@
                 <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                     <div>
                         <p class="text-sm text-gray-700">
-                        Showing <span class="font-medium">{{ ($current_page - 1) * 10 + 1 }}</span> to <span class="font-medium">{{ $current_page * 10 }}</span> of <span class="font-medium">{{ count($schedules) }}</span> results
+                        Showing <span class="font-medium">{{ ($current_page - 1) * 10 + 1 }}</span> to <span class="font-medium">{{ $current_page * 10 }}</span> of <span class="font-medium">{{ count($closed_schedules) }}</span> results
                         </p>
                     </div>
                     <div>
@@ -165,4 +174,5 @@
     </main>
 </section>
 @endsection
+
 

@@ -13,8 +13,15 @@ class ScheduleController extends Controller
 {
     public function index()
     {
+        $schedules = Schedule::paginate(10);
+        $current_page = $schedules->currentPage();
+        $last_page = $schedules->lastPage();
         return view("admin.schedules.index", [
-            "schedules" => Schedule::all(),
+            "schedules" => $schedules,
+            "total_pages" => $last_page,
+            "current_page" => $current_page,
+            "first_link" => $current_page > 3 ? $current_page - 2 : 1,
+            "last_link" => $current_page + 2 < $last_page ? $current_page + 2 : $last_page,
         ]);
     }
 
@@ -43,7 +50,7 @@ class ScheduleController extends Controller
         }
 
         $xlsx = new Xlsx($spreadsheet);
-        $filename =  Storage::path("schedules-table");
+        $filename =  Storage::path("schedules-table.xlsx");
         $xlsx->save($filename);
         return response()->download($filename)->deleteFileAfterSend();
     }
@@ -55,22 +62,22 @@ class ScheduleController extends Controller
 
     public function store(Request $request)
     {
-        //
+        abort(400);
     }
 
     public function show(Schedule $schedule)
     {
-        //
+        abort(400);
     }
 
     public function edit(Schedule $schedule)
     {
-        //
+        abort(400);
     }
 
     public function update(Request $request, Schedule $schedule)
     {
-        //
+        abort(400);
     }
 
     public function destroy(Schedule $schedule)

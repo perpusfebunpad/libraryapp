@@ -19,8 +19,15 @@ class UserController extends Controller
      */
     public function index()
     {
+        $users = User::paginate(10);
+        $current_page = $users->currentPage();
+        $last_page = $users->lastPage();
         return view("admin.users.index", [
-            "users" => User::all(),
+            "users" => $users,
+            "total_pages" => $last_page,
+            "current_page" => $current_page,
+            "first_link" => $current_page > 3 ? $current_page - 2 : 1,
+            "last_link" => $current_page + 2 < $last_page ? $current_page + 2 : $last_page,
         ]);
     }
 
@@ -50,7 +57,7 @@ class UserController extends Controller
         }
 
         $xlsx = new Xlsx($spreadsheet);
-        $filename =  Storage::path("users-table");
+        $filename =  Storage::path("users-table.xlsx");
         $xlsx->save($filename);
         return response()->download($filename)->deleteFileAfterSend();
     }
@@ -78,17 +85,18 @@ class UserController extends Controller
             "name" => "required",
             "email" => "required|email",
             "phone_number" => "required|numeric|digits_between:10,14",
-            "departement" => "required", 
+            "departement" => "required",
             "password" => "required|min:8|confirmed",
             "status" => "required",
             "role" => "required",
         ]);
         $validData["password"] = Hash::make($validData["password"]);
         $newUser =  User::create($validData);
-        return redirect("/_/users")->with("success", "Successfully create a new user");
+        return redirect(route("users.index"))->with("success", "Successfully create a new user");
     }
 
     public function show(User $user) {
+        abort(404);
         return view("admin.users.show", [
             "user" => $user,
         ]);
@@ -122,7 +130,7 @@ class UserController extends Controller
             "name" => "required",
             "email" => "required|email",
             "phone_number" => "required|numeric|digits_between:10,14",
-            "departement" => "required", 
+            "departement" => "required",
             "status" => "required",
             "role" => "required",
             "password" => "nullable|min:8|confirmed"
@@ -135,7 +143,7 @@ class UserController extends Controller
         }
 
         User::where("id", $user->id)->update($validData);
-        return redirect("/_/users")->with("success", "Successfully update an user");
+        return redirect(route("users.index"))->with("success", "Successfully update an user");
     }
 
     /**

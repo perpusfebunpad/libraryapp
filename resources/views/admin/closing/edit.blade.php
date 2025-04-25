@@ -6,12 +6,12 @@
 @endsection
 
 @section("body")
-@include("_utils.navbar")
+@include("_utils.navbar2")
 <div class="mt-6 px-6 pb-6">
     <div class="border-b border-black pb-5 mb-5">
         <h1 class="text-5xl">Edit Jadwal Tutup</h1>
     </div>
-    <form class="p-3 w-full mt-6" action="/_/close-schedules/edit/{{$close_schedule->id}}" method="post">
+    <form class="p-3 w-full mt-6" action="{{ route('closing.update', $close_schedule->id) }}" method="post">
         @csrf
         @method("put")
         <div class="mt-3">

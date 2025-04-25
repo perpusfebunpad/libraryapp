@@ -5,7 +5,7 @@
 @endsection
 
 @section("body")
-@include("_utils.navbar")
+@include("_utils.navbar2")
 <div class="mt-6 px-6 pb-6">
     <div class="border-b border-black pb-5 mb-5">
         <h1 class="text-5xl">Create an User</h1>
@@ -45,7 +45,7 @@
             <select name="role" id="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option value="normal">Normal User</option>
                 <option value="admin">Admin User</option>
-            </select>   
+            </select>
             @error("role")
                 <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
             @enderror
@@ -73,7 +73,7 @@
                 <option value="PROFESI_AKUNTANSI">Profesi Akuntansi</option>
                 <option value="S2_EKONOMI">S2 Ekonomi</option>
                 <option value="S2_ILMU_EKONOMI">S2 Ilmu Ekonomi</option>
-                <option value="S2_ILMU_MANAJEMEN">S2 Ilmu Manajemen</option> 
+                <option value="S2_ILMU_MANAJEMEN">S2 Ilmu Manajemen</option>
                 <option value="S2_MANAJEMEN">S2 Manajemen</option>
                 <option value="S2_AKUNTANSI">S2 Akuntansi</option>
                 <option value="S2_EKONOMI_TERAPAN">S2 Ekonomi Terapan</option>
@@ -82,7 +82,7 @@
                 <option value="S3_EKONOMI">S3 Ekonomi</option>
                 <option value="S3_MANAJEMEN">S3 Manajemen</option>
                 <option value="S3_AKUNTANSI">S3 Akuntansi</option>
-            </select>   
+            </select>
             @error("departement")
                 <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
             @enderror

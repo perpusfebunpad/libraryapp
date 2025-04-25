@@ -59,7 +59,8 @@ Route::prefix("/admin")->middleware(["auth", "can:moderate"])->group(function(){
 
     Route::get("/schedules/export", [Admin\ScheduleController::class, "export"])->name("schedules.export");
     Route::resource("/schedules", Admin\ScheduleController::class);
-    Route::resource("/close-schedules", Admin\CloseScheduleController::class);
+    Route::get("/closing/export", [Admin\CloseScheduleController::class, "export"])->name("closing.export");
+    Route::resource("/closing", Admin\CloseScheduleController::class);
 
     Route::get("/link-storage", function() {
         Artisan::call("storage:link");
