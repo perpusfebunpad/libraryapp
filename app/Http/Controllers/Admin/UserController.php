@@ -56,10 +56,12 @@ class UserController extends Controller
             $asheet->setCellValue("H".$key, $user->role);
         }
 
-        $xlsx = new Xlsx($spreadsheet);
-        $filename =  Storage::path("users-table.xlsx");
-        $xlsx->save($filename);
-        return response()->download($filename)->deleteFileAfterSend();
+        $writer = new Xlsx($spreadsheet);
+
+        ob_end_clean();
+        return response()->streamDownload(function() use ($writer) {
+            $writer->save("php://output");
+        }, "users-table.xlsx", [ "Content-Type" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ]);
     }
 
     /**

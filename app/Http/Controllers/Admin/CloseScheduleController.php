@@ -51,10 +51,12 @@ class CloseScheduleController extends Controller
             $asheet->setCellValue("D".$key, $close_schedule->reason);
         }
 
-        $xlsx = new Xlsx($spreadsheet);
-        $filename =  Storage::path("closing-schedules-table");
-        $xlsx->save($filename);
-        return response()->download($filename)->deleteFileAfterSend();
+        $writer = new Xlsx($spreadsheet);
+
+        ob_end_clean();
+        return response()->streamDownload(function() use ($writer) {
+            $writer->save("php://output");
+        }, "schedules-table.xlsx", [ "Content-Type" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ]);
     }
 
     /**
