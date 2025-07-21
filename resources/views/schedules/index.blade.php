@@ -127,16 +127,6 @@
                                 </svg>
                                 All Reserved Schedule
                             </h2>
-                            <div class="flex space-x-2">
-                                <select class="px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-                                    <option>All Time</option>
-                                    <option>This Month</option>
-                                    <option>Last Month</option>
-                                </select>
-                                <button class="px-3 py-1.5 bg-amber-100 text-amber-800 rounded-md text-sm font-medium hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1">
-                                    Export
-                                </button>
-                            </div>
                         </div>
                     </div>
 
@@ -252,7 +242,7 @@
                                         1
                                     </a>
                                     @else
-                                    <a href="?page={{i}} class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                    <a href="?page={{$i}} class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
                                         2
                                     </a>
                                     @endif

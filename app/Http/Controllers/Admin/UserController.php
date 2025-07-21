@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
+        $users = User::paginate(50);
         $current_page = $users->currentPage();
         $last_page = $users->lastPage();
         return view("admin.users.index", [

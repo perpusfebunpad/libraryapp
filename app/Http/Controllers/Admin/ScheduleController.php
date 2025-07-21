@@ -13,7 +13,7 @@ class ScheduleController extends Controller
 {
     public function index()
     {
-        $schedules = Schedule::paginate(10);
+        $schedules = Schedule::paginate(50);
         $current_page = $schedules->currentPage();
         $last_page = $schedules->lastPage();
         return view("admin.schedules.index", [

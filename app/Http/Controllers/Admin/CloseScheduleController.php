@@ -19,7 +19,7 @@ class CloseScheduleController extends Controller
      */
     public function index()
     {
-        $schedules = CloseSchedule::paginate(10);
+        $schedules = CloseSchedule::paginate(50);
         $current_page = $schedules->currentPage();
         $last_page = $schedules->lastPage();
         return view("admin.closing.index", [
