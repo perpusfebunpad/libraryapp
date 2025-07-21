@@ -240,7 +240,10 @@ class ScheduleController extends Controller
         }
         $pdf->Ln(7);
         $pdf->Write(5, "Kode Jadwal : $schedule->verification_code");
-        $pdf->Output('D', "bukti-registrasi.pdf");
+        // $pdf->Output('D', "bukti-registrasi.pdf");
         // return redirect("/schedule");
+        return response($pdf->Output('S', 'bukti-registrasi.pdf'))
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="bukti-registrasi.pdf"');
     }
 }
